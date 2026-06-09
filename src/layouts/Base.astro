@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import FloatingCtas from '../components/FloatingCtas.astro';
+import { company } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+const { title, description, ogImage = '/og-default.jpg' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'GeneralContractor',
+  name: company.legalName,
+  alternateName: company.shortName,
+  url: Astro.site?.href,
+  telephone: company.phoneDisplay,
+  email: company.email,
+  foundingDate: '2004-05-28',
+  description:
+    'Commercial M&E heating contractor - design, in-house pipe fabrication, installation and maintenance across London and the Home Counties.',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Unit 7, Building B, Parkfield Industrial Estate, Culvert Place',
+    addressLocality: 'London',
+    postalCode: 'SW11 5BA',
+    addressCountry: 'GB',
+  },
+  areaServed: 'London & the Home Counties',
+  identifier: { '@type': 'PropertyValue', name: 'Companies House', value: company.companyNumber },
+};
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1C2A33" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content={company.shortName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  </head>
+  <body class="grain min-h-dvh antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-slate-ink focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-bone">Skip to content</a>
+    <div id="scroll-progress"></div>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <FloatingCtas />
+    <CookieBanner />
+
+    <script>
+      import '../scripts/fx.ts';
+    </script>
+  </body>
+</html>

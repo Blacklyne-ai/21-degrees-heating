@@ -1,0 +1,15 @@
+---
+interface Props { items: string[] }
+const { items } = Astro.props;
+const run = [...items, ...items];
+---
+<div class="overflow-hidden border-y border-slate-ink/10 bg-bone-200 py-5" aria-hidden="true">
+  <div class="marquee-track">
+    {run.map((item) => (
+      <span class="mx-6 inline-flex items-center gap-6 font-display text-lg font-medium text-slate-ink/80">
+        {item}
+        <span class="text-teal">◆</span>
+      </span>
+    ))}
+  </div>
+</div>

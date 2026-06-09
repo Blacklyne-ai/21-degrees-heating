@@ -1,0 +1,28 @@
+---
+// ICO / UK GDPR compliant - Accept and Reject equally prominent (no dark patterns).
+---
+<div id="cookie-banner" class="fixed inset-x-3 bottom-3 z-[60] hidden sm:inset-x-auto sm:right-5 sm:bottom-5 sm:max-w-md">
+  <div class="rounded-2xl border border-slate-ink/10 bg-bone p-5 shadow-[0_18px_50px_-12px_rgba(28,42,51,0.35)]">
+    <p class="font-display text-lg font-semibold text-slate-ink">Cookies on this site</p>
+    <p class="mt-1.5 text-sm leading-relaxed text-slate-ink/75">
+      We use essential cookies to make this site work. We’d also like to set optional analytics cookies to understand how the site is used. You can accept or reject these - your choice is saved.
+      <a href="/cookie-policy" class="font-medium text-teal underline underline-offset-2">Cookie policy</a>.
+    </p>
+    <div class="mt-4 flex gap-2.5">
+      <button data-cookie="accept" class="flex-1 rounded-full bg-slate-ink px-4 py-2.5 text-sm font-semibold text-bone transition-colors hover:bg-slate-700">Accept</button>
+      <button data-cookie="reject" class="flex-1 rounded-full border border-slate-ink/25 px-4 py-2.5 text-sm font-semibold text-slate-ink transition-colors hover:bg-bone-200">Reject</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const KEY = '21dh-cookie-consent';
+  const banner = document.getElementById('cookie-banner')!;
+  if (!localStorage.getItem(KEY)) banner.classList.remove('hidden');
+  banner.querySelectorAll<HTMLButtonElement>('[data-cookie]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      localStorage.setItem(KEY, btn.dataset.cookie!);
+      banner.classList.add('hidden');
+    });
+  });
+</script>

@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+.npm-cache/
+
+# build output
+dist/
+.astro/
+
+# working scratch (asset harvest, temp crops)
+_harvest/
+
+# editor / OS / local config
+.DS_Store
+.claude/
+*.log
+npm-debug.log*
+
+# env
+.env
+.env.production

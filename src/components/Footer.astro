@@ -1,0 +1,75 @@
+---
+import Wordmark from './Wordmark.astro';
+import { company, nav, accreditations } from '../data/site';
+const year = 2026;
+---
+<footer class="bg-slate-ink text-bone">
+  <!-- Accreditation strip -->
+  <div class="border-b border-white/10">
+    <div class="mx-auto max-w-7xl px-5 py-8 lg:px-8">
+      <p class="eyebrow mb-5">Twelve accreditations</p>
+      <ul class="grid grid-cols-3 gap-x-4 gap-y-3 sm:grid-cols-4 md:grid-cols-6">
+        {accreditations.map((a) => (
+          <li>
+            <a href={a.verify} target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-bone/95 px-3 py-3 text-center transition-transform hover:-translate-y-0.5" title={a.full}>
+              {a.img
+                ? <img src={a.img} alt={a.full} width="120" height="56" loading="lazy" class="mx-auto h-9 w-auto object-contain" />
+                : <span class="font-display text-base font-semibold text-slate-ink">{a.name}</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="mx-auto grid max-w-7xl gap-10 px-5 py-14 lg:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
+    <div>
+      <div class="text-bone"><Wordmark /></div>
+      <p class="mt-5 max-w-sm text-sm leading-relaxed text-steel-light">
+        Commercial M&amp;E heating contractor - design, in-house pipe fabrication, installation and maintenance across London and the Home Counties since 2004.
+      </p>
+      <div class="mt-6 space-y-1.5 text-sm">
+        <a href={`tel:${company.phoneHref}`} class="block font-semibold text-bone hover:text-teal-400 tnum">{company.phoneDisplay}</a>
+        <a href={`mailto:${company.email}`} class="block text-steel-light hover:text-teal-400">{company.email}</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="eyebrow mb-4">Navigate</p>
+      <ul class="space-y-2.5 text-sm">
+        {nav.map((n) => (
+          <li><a href={n.href} class="text-steel-light transition-colors hover:text-bone">{n.label}</a></li>
+        ))}
+        <li><a href="/capability-statement" class="text-steel-light transition-colors hover:text-bone">Capability statement</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="eyebrow mb-4">Addresses</p>
+      <div class="space-y-4 text-sm text-steel-light">
+        <div>
+          <p class="font-semibold text-bone">Trading address</p>
+          <p>{company.tradingAddress}</p>
+        </div>
+        <div>
+          <p class="font-semibold text-bone">Registered office</p>
+          <p>{company.registeredOffice}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 text-xs text-steel-light md:flex-row md:items-center md:justify-between lg:px-8">
+      <p>
+        &copy; {year} {company.legalName}. Registered in England &amp; Wales, company no. <span class="tnum">{company.companyNumber}</span>. {company.vat}.
+      </p>
+      <div class="flex flex-wrap gap-x-5 gap-y-1.5">
+        <a href="/privacy" class="hover:text-bone">Privacy</a>
+        <a href="/cookie-policy" class="hover:text-bone">Cookies</a>
+        <a href="/terms" class="hover:text-bone">Terms</a>
+        <a href="/sitemap" class="hover:text-bone">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>

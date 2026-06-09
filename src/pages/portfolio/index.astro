@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { projects, company } from '../../data/site';
+import { getPhoto } from '../../lib/photos';
+---
+<Base
+  title="Projects - 21 Degrees Heating Portfolio"
+  description="Ten named M&E heating projects across London and the South East - Tower Bridge, Kingston University, NHS Trusts and City of London estates. £10M+ delivered."
+>
+  <!-- Header -->
+  <section class="bg-slate-ink pt-36 pb-16 text-bone lg:pt-44 lg:pb-20">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <p class="eyebrow mb-3">Ten named projects · £10M+ delivered</p>
+      <h1 class="h-display max-w-4xl text-5xl text-bone sm:text-6xl lg:text-7xl">
+        A portfolio you can <span class="font-semibold">take into a tender report.</span>
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-bone/80">
+        Named clients, confirmed values, technical detail. Every project below was designed, fabricated and installed by 21 Degrees Heating.
+      </p>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section class="bg-bone py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p) => {
+          const img = getPhoto(`${p.photoPrefix}-01`)!;
+          return (
+            <a href={`/portfolio/${p.slug}`} class="group flex flex-col overflow-hidden rounded-3xl border border-slate-ink/10 bg-bone-200/40 transition-all hover:-translate-y-1 hover:border-teal/40 reveal">
+              <div class="relative aspect-[4/3] overflow-hidden">
+                <Image src={img} alt={`${p.name} project`} class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" widths={[400, 700]} sizes="(max-width:768px) 100vw, 33vw" />
+                <span class="absolute left-3 top-3 rounded-full bg-slate-ink/80 px-3 py-1 text-xs font-medium text-bone backdrop-blur-sm">{p.sector}</span>
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <div class="flex items-baseline justify-between gap-3">
+                  <h2 class="font-display text-xl font-semibold text-slate-ink">{p.name}</h2>
+                  <span class="flex-none font-semibold text-teal tnum">{p.value}</span>
+                </div>
+                <p class="mt-2 text-sm leading-relaxed text-slate-ink/70">{p.summary}</p>
+                <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-ink group-hover:text-teal">Case study <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-teal py-16 text-center text-bone">
+    <div class="mx-auto max-w-2xl px-5">
+      <h2 class="h-display text-3xl sm:text-4xl">Need evidence for a submission? <span class="font-semibold">Get our capability statement.</span></h2>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <a href="/capability-statement" class="rounded-full bg-slate-ink px-7 py-3.5 font-semibold text-bone hover:bg-slate-700">Capability statement</a>
+        <a href={`tel:${company.phoneHref}`} class="rounded-full border border-bone/40 px-7 py-3.5 font-semibold text-bone hover:bg-bone/10 tnum">{company.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+</Base>

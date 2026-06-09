@@ -1,0 +1,464 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ProjectMap from '../components/ProjectMap.astro';
+import Marquee from '../components/Marquee.astro';
+import { company, sectors, services, projects, reasons, accreditations } from '../data/site';
+import { getPhoto } from '../lib/photos';
+
+const hero = getPhoto('tower-bridge-01')!;
+const featured = ['tower-bridge', 'kingston-hill', 'aylesbury-estate'].map(
+  (s) => projects.find((p) => p.slug === s)!,
+);
+const renew = getPhoto('renewables-01')!;
+const aboutImg = getPhoto('middlesex-york-05')!;
+
+const marqueeItems = [
+  'Social Housing', 'NHS Healthcare', 'Heritage', 'Education', 'Local Authority',
+  'Commercial', 'District Heating', 'Plant Rooms', 'Emergency Boiler Hire', 'ASHP & Renewables',
+];
+---
+<Base
+  title="21 Degrees Heating - Commercial M&E Heating Contractor, London"
+  description="Commercial M&E heating contractor since 2004. In-house design, pipe fabrication, installation and maintenance - £10M+ delivered across Tower Bridge, NHS Trusts and City of London estates."
+>
+  <!-- ───────────── HERO ───────────── -->
+  <section class="relative isolate flex min-h-[94svh] items-end overflow-hidden bg-slate-ink">
+    <!-- Parallax + Ken Burns image layer -->
+    <div class="absolute inset-0 -z-20 overflow-hidden" data-parallax="0.18">
+      <Image
+        src={hero}
+        alt="New boiler plant and distribution pipework installed by 21 Degrees Heating inside a Tower Bridge plant room"
+        class="kenburns h-[118%] w-full object-cover opacity-70"
+        widths={[768, 1280, 1920]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-slate-ink via-slate-ink/85 to-slate-ink/20"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-slate-ink via-transparent to-slate-ink/40"></div>
+    <!-- Blueprint grid + ghost depth layer -->
+    <svg class="absolute inset-0 -z-10 h-full w-full opacity-[0.07]" aria-hidden="true">
+      <defs><pattern id="hgrid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#F4EFE6" stroke-width="1"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#hgrid)"/>
+    </svg>
+    <span class="ghost absolute -bottom-10 right-2 -z-10 text-[26vw] text-bone lg:text-[20vw]" aria-hidden="true">21°</span>
+
+    <div class="mx-auto w-full max-w-7xl px-5 pb-20 pt-32 lg:px-8 lg:pb-28">
+      <p class="eyebrow enter text-teal-400" style="--d:80ms">Commercial M&amp;E Heating · London &amp; the Home Counties</p>
+      <h1 class="h-display enter mt-5 max-w-4xl text-5xl text-bone sm:text-6xl lg:text-7xl" style="--d:160ms">
+        <span class="font-semibold">Heating infrastructure</span> engineered, fabricated and commissioned in-house <span class="font-semibold">since 2004.</span>
+      </h1>
+      <p class="enter mt-6 max-w-2xl text-lg leading-relaxed text-bone/80" style="--d:300ms">
+        £10M+ of delivered plant - from Tower Bridge to NHS Trusts and City of London estates. Design, in-house pipe fabrication, installation and 24/7 temporary boiler cover from our Battersea works.
+      </p>
+      <div class="enter mt-9 flex flex-wrap gap-3" style="--d:420ms">
+        <a href="/capability-statement" data-magnetic class="inline-block rounded-full bg-teal px-7 py-3.5 text-base font-semibold text-bone shadow-lg shadow-teal/20 transition-colors hover:bg-teal-600">Download capability statement</a>
+        <a href="/contact" class="rounded-full border border-bone/30 px-7 py-3.5 text-base font-semibold text-bone backdrop-blur-sm transition-colors hover:bg-bone/10">Discuss a project</a>
+      </div>
+      <div class="enter mt-10 inline-flex items-center gap-3 rounded-full border border-bone/15 bg-slate-ink/40 px-4 py-2 text-sm text-bone/80 backdrop-blur-sm" style="--d:560ms">
+        <span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75"></span><span class="relative h-2 w-2 rounded-full bg-teal"></span></span>
+        <span class="font-medium text-bone">Tower Bridge</span>
+        <span class="text-bone/40">·</span>
+        <span>2 new boiler rooms</span>
+        <span class="text-bone/40">·</span>
+        <span class="tnum font-semibold text-teal-400">£800,000</span>
+      </div>
+    </div>
+
+    <!-- scroll cue -->
+    <div class="enter absolute bottom-6 left-1/2 hidden -translate-x-1/2 lg:block" style="--d:900ms" aria-hidden="true">
+      <span class="flex h-9 w-6 items-start justify-center rounded-full border border-bone/30 p-1.5">
+        <span class="h-2 w-1 animate-bounce rounded-full bg-bone/70"></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ───────────── STAT BAND (floats over hero seam) ───────────── -->
+  <section class="relative z-20 -mt-14 lg:-mt-20" aria-label="Company at a glance">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="grid grid-cols-2 overflow-hidden rounded-3xl border border-slate-ink/10 bg-bone shadow-[0_24px_60px_-22px_rgba(28,42,51,0.45)] lg:grid-cols-4" data-stagger>
+        <div class="reveal border-b border-slate-ink/8 px-6 py-8 sm:border-r lg:border-b-0">
+          <p class="font-display text-4xl font-semibold text-slate-ink lg:text-5xl">Since 2004</p>
+          <p class="mt-2 text-sm leading-snug text-steel">22 years of M&amp;E delivery</p>
+        </div>
+        <div class="reveal border-b border-slate-ink/8 px-6 py-8 lg:border-b-0 lg:border-r">
+          <p class="font-display text-4xl font-semibold text-slate-ink tnum lg:text-5xl"><span data-count="10" data-prefix="£" data-suffix="M+">£0M+</span></p>
+          <p class="mt-2 text-sm leading-snug text-steel">In named project portfolio</p>
+        </div>
+        <div class="reveal border-slate-ink/8 px-6 py-8 sm:border-r">
+          <p class="font-display text-4xl font-semibold text-slate-ink tnum lg:text-5xl"><span data-count="12">0</span></p>
+          <p class="mt-2 text-sm leading-snug text-steel">Industry accreditations</p>
+        </div>
+        <div class="reveal px-6 py-8">
+          <p class="font-display text-4xl font-semibold text-slate-ink tnum lg:text-5xl"><span data-count="20" data-suffix="+">0+</span></p>
+          <p class="mt-2 text-sm leading-snug text-steel">In-house staff</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── TRUST BADGE STRIP ───────────── -->
+  <section class="bg-bone py-12" aria-label="Accreditations">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <p class="mb-6 text-center text-sm font-medium text-steel">Independently accredited - verified by the bodies that govern our trade</p>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-5">
+        {accreditations.filter((a) => a.img).map((a) => (
+          <img src={a.img} alt={a.full} width="120" height="48" loading="lazy" class="h-10 w-auto object-contain opacity-80 grayscale transition hover:opacity-100 hover:grayscale-0" title={a.full} />
+        ))}
+        <a href="/accreditations" class="text-sm font-semibold text-teal hover:text-teal-600">All 12 &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── WOW: PROJECT MAP ───────────── -->
+  <ProjectMap />
+
+  <!-- ───────────── SIX SECTORS ───────────── -->
+  <section class="bg-bone py-20 lg:py-28" aria-labelledby="sectors-heading">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="max-w-2xl reveal">
+        <p class="eyebrow mb-3">Six sectors we serve</p>
+        <h2 id="sectors-heading" class="h-display text-4xl text-slate-ink sm:text-5xl">
+          Built for the buildings that <span class="font-semibold">can’t go cold.</span>
+        </h2>
+      </div>
+      <div data-stagger class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {sectors.map((s) => (
+          <a href={`/sectors/${s.slug}`} class="group flex flex-col rounded-3xl border border-slate-ink/10 bg-bone-200/50 p-7 transition-all lift hover:border-teal/40 hover:bg-bone-200 reveal">
+            <div class="flex items-baseline justify-between">
+              <span class="font-display text-3xl font-semibold text-teal tnum">{s.no}</span>
+              <span class="rounded-full bg-slate-ink/5 px-3 py-1 text-xs font-medium text-steel">{s.tag}</span>
+            </div>
+            <h3 class="mt-5 font-display text-2xl font-semibold text-slate-ink">{s.name}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-ink/70">{s.blurb}</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-ink transition-colors group-hover:text-teal">
+              Explore sector
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── FOUR GOOD REASONS ───────────── -->
+  <section class="bg-slate-ink py-20 text-bone lg:py-28" aria-labelledby="reasons-heading">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="max-w-2xl reveal">
+        <p class="eyebrow mb-3">Four good reasons</p>
+        <h2 id="reasons-heading" class="h-display text-4xl text-bone sm:text-5xl">
+          Why main contractors and estates teams <span class="font-semibold">keep coming back.</span>
+        </h2>
+      </div>
+      <div data-stagger class="mt-12 grid gap-px overflow-hidden rounded-3xl border border-white/10 sm:grid-cols-2 lg:grid-cols-4">
+        {reasons.map((r) => (
+          <div class="bg-slate-800 p-7 reveal">
+            <span class="font-display text-3xl font-semibold text-teal-400 tnum">{r.no}</span>
+            <h3 class="mt-4 font-display text-xl font-semibold text-bone">{r.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-steel-light">{r.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── NINE SERVICES ───────────── -->
+  <section class="bg-bone py-20 lg:py-28" aria-labelledby="services-heading">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="flex flex-wrap items-end justify-between gap-4 reveal">
+        <div class="max-w-2xl">
+          <p class="eyebrow mb-3">Nine in-house services</p>
+          <h2 id="services-heading" class="h-display text-4xl text-slate-ink sm:text-5xl">
+            Concept to commissioning, <span class="font-semibold">under one roof.</span>
+          </h2>
+        </div>
+        <a href="/services" class="text-sm font-semibold text-teal hover:text-teal-600">All services &rarr;</a>
+      </div>
+      <div data-stagger class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((s) => (
+          <a href={`/services/${s.slug}`} class={`group flex flex-col rounded-3xl border p-7 transition-all lift reveal ${s.featured ? 'border-teal/50 bg-teal/5 hover:bg-teal/10' : 'border-slate-ink/10 bg-bone-200/40 hover:border-teal/40 hover:bg-bone-200'}`}>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-2xl font-semibold text-teal tnum">{s.no}</span>
+              {s.featured && <span class="rounded-full bg-teal px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-bone">24/7</span>}
+            </div>
+            <h3 class="mt-4 font-display text-xl font-semibold text-slate-ink">{s.name}</h3>
+            <p class="mt-1 text-xs font-medium uppercase tracking-wide text-steel">{s.tag}</p>
+            <p class="mt-3 text-sm leading-relaxed text-slate-ink/70">{s.blurb}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── FEATURED CASE STUDIES BENTO ───────────── -->
+  <section class="bg-bone-200/40 py-20 lg:py-28" aria-labelledby="featured-heading">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="flex flex-wrap items-end justify-between gap-4 reveal">
+        <div class="max-w-2xl">
+          <p class="eyebrow mb-3">Ten named projects</p>
+          <h2 id="featured-heading" class="h-display text-4xl text-slate-ink sm:text-5xl">
+            Evidence at <span class="font-semibold">£1M+ scale.</span>
+          </h2>
+        </div>
+        <a href="/portfolio" class="text-sm font-semibold text-teal hover:text-teal-600">View all projects &rarr;</a>
+      </div>
+      <div data-stagger class="mt-12 grid gap-5 lg:grid-cols-12">
+        {featured.map((p, i) => {
+          const img = getPhoto(`${p.photoPrefix}-01`)!;
+          const big = i === 0;
+          return (
+            <a href={`/portfolio/${p.slug}`} class={`group relative isolate flex flex-col justify-end overflow-hidden rounded-3xl bg-slate-ink reveal ${big ? 'lg:col-span-7 min-h-[26rem]' : 'lg:col-span-5 min-h-[20rem]'}`}>
+              <Image src={img} alt={`${p.name} project`} class="absolute inset-0 -z-10 h-full w-full object-cover opacity-65 transition-transform duration-700 group-hover:scale-105" widths={[480, 800, 1200]} sizes="(max-width:1024px) 100vw, 50vw" />
+              <div class="absolute inset-0 -z-10 bg-gradient-to-t from-slate-ink via-slate-ink/55 to-transparent"></div>
+              <div class="p-7">
+                <span class="rounded-full bg-bone/15 px-3 py-1 text-xs font-medium text-bone backdrop-blur-sm">{p.sector}</span>
+                <h3 class="mt-4 font-display text-2xl font-semibold text-bone lg:text-3xl">{p.name}</h3>
+                <p class="mt-1 text-2xl font-semibold text-teal-400 tnum">{p.value}</p>
+                <p class="mt-2 max-w-md text-sm leading-relaxed text-bone/75">{p.summary}</p>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── EMERGENCY BOILER HIRE ───────────── -->
+  <section class="bg-teal py-16 text-bone lg:py-20" aria-labelledby="emergency-heading">
+    <div class="mx-auto flex max-w-7xl flex-col items-start gap-8 px-5 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div class="max-w-2xl reveal">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-bone/80">Our own fleet · 100kW–2MW</p>
+        <h2 id="emergency-heading" class="h-display mt-3 text-4xl text-bone sm:text-5xl">
+          Plant down? <span class="font-semibold">Temporary boilers, fast.</span>
+        </h2>
+        <p class="mt-4 text-base leading-relaxed text-bone/85">
+          When a system fails, buildings can’t wait. We supply and service our own temporary boiler plants - from 100kW to 2MW - for emergency heating and hot water cover across London and the Home Counties.
+        </p>
+      </div>
+      <div class="flex flex-col gap-3 reveal">
+        <a href={`tel:${company.phoneHref}`} class="rounded-full bg-slate-ink px-7 py-3.5 text-center text-base font-semibold text-bone transition-colors hover:bg-slate-700 tnum">Call {company.phoneDisplay}</a>
+        <a href="/services/emergency-boiler-hire" class="rounded-full border border-bone/40 px-7 py-3.5 text-center text-base font-semibold text-bone transition-colors hover:bg-bone/10">About emergency hire</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── RENEWABLES ───────────── -->
+  <section class="bg-bone py-20 lg:py-28" aria-labelledby="renew-heading">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-2 lg:px-8">
+      <div class="reveal">
+        <p class="eyebrow mb-3">Renewables · MCS certified</p>
+        <h2 id="renew-heading" class="h-display text-4xl text-slate-ink sm:text-5xl">
+          Ready for the <span class="font-semibold">gas-free estate.</span>
+        </h2>
+        <p class="mt-5 text-base leading-relaxed text-slate-ink/75">
+          We took the steps to become an MCS-accredited company because the work is changing. We’ve delivered a large Air Source Heat Pump scheme for Dartford Civic Centre and regenerated the Orchard Theatres plant room to run completely gas-free - infrastructure built for Heat Network Zoning and the Future Buildings Standard.
+        </p>
+        <ul class="mt-6 space-y-2.5 text-sm text-slate-ink/80">
+          <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-teal"></span>MCS-certified Air Source Heat Pump installation</li>
+          <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-teal"></span>Gas-free plant room conversions for civic &amp; cultural buildings</li>
+          <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-teal"></span>ASHP retrofit to Victorian heritage buildings</li>
+        </ul>
+        <a href="/services/heat-pumps" class="mt-7 inline-flex items-center gap-1.5 rounded-full bg-slate-ink px-6 py-3 text-sm font-semibold text-bone transition-colors hover:bg-slate-700">Renewables &amp; heat pumps</a>
+      </div>
+      <div class="relative overflow-hidden rounded-3xl reveal">
+        <Image src={renew} alt="Air Source Heat Pump installation by 21 Degrees Heating" class="h-full w-full object-cover" widths={[480, 800]} sizes="(max-width:1024px) 100vw, 50vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── ABOUT PREVIEW ───────────── -->
+  <section class="bg-slate-ink py-20 text-bone lg:py-28" aria-labelledby="about-heading">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-[1fr_1.1fr] lg:px-8">
+      <div class="relative overflow-hidden rounded-3xl reveal">
+        <Image src={aboutImg} alt="21 Degrees Heating plant room installation" class="h-full w-full object-cover" widths={[480, 800]} sizes="(max-width:1024px) 100vw, 45vw" />
+      </div>
+      <div class="reveal">
+        <p class="eyebrow mb-3">The company</p>
+        <h2 id="about-heading" class="h-display text-4xl text-bone sm:text-5xl">
+          22 years. 20+ in-house staff. <span class="font-semibold">One accountable contractor.</span>
+        </h2>
+        <p class="mt-5 text-base leading-relaxed text-steel-light">
+          Founded by {company.director} in 2004, 21 Degrees Heating designs, fabricates and installs industrial and commercial heating from our Battersea works. We run our own design office, pipe fabrication and ground-works team - and many of our people have been here since the company began. The result is delivery certainty a subcontracted chain can’t promise.
+        </p>
+        <div class="mt-8 grid grid-cols-3 gap-6">
+          <div><p class="font-display text-3xl font-semibold text-teal-400 tnum">2004</p><p class="mt-1 text-xs text-steel-light">Incorporated</p></div>
+          <div><p class="font-display text-3xl font-semibold text-teal-400 tnum">20+</p><p class="mt-1 text-xs text-steel-light">In-house staff</p></div>
+          <div><p class="font-display text-3xl font-semibold text-teal-400 tnum">£10M+</p><p class="mt-1 text-xs text-steel-light">Named portfolio</p></div>
+        </div>
+        <a href="/about" class="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-bone hover:text-teal-400">About 21 Degrees <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── MARQUEE ───────────── -->
+  <Marquee items={marqueeItems} />
+
+  <!-- ───────────── CAPABILITY STATEMENT CTA ───────────── -->
+  <section class="bg-bone py-20 lg:py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="overflow-hidden rounded-3xl border border-slate-ink/10 bg-bone-200/60 p-9 lg:p-14 reveal">
+        <div class="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div class="max-w-2xl">
+            <p class="eyebrow mb-3">For tender qualification</p>
+            <h2 class="h-display text-3xl text-slate-ink sm:text-4xl">
+              Everything procurement needs, <span class="font-semibold">in one document.</span>
+            </h2>
+            <p class="mt-4 text-base leading-relaxed text-slate-ink/70">
+              Accreditations, insurances, recent £1M+ project evidence and company information - our capability statement is built for pre-qualification and framework submissions.
+            </p>
+          </div>
+          <a href="/capability-statement" class="flex-none rounded-full bg-slate-ink px-7 py-3.5 text-base font-semibold text-bone transition-colors hover:bg-slate-700">Download capability statement</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── CONTACT ───────────── -->
+  <section id="contact" class="bg-slate-ink py-20 text-bone lg:py-28" aria-labelledby="contact-heading">
+    <div class="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[1fr_1.2fr] lg:px-8">
+      <div>
+        <p class="eyebrow mb-3">Discuss a project</p>
+        <h2 id="contact-heading" class="h-display text-4xl text-bone sm:text-5xl">
+          Talk to the team that <span class="font-semibold">delivers it.</span>
+        </h2>
+        <ul class="mt-8 space-y-4 text-sm">
+          <li class="flex gap-3"><span class="text-teal-400">›</span><div><p class="text-steel-light">Phone</p><a href={`tel:${company.phoneHref}`} class="text-lg font-semibold text-bone hover:text-teal-400 tnum">{company.phoneDisplay}</a></div></li>
+          <li class="flex gap-3"><span class="text-teal-400">›</span><div><p class="text-steel-light">Email</p><a href={`mailto:${company.email}`} class="text-lg font-semibold text-bone hover:text-teal-400">{company.email}</a></div></li>
+          <li class="flex gap-3"><span class="text-teal-400">›</span><div><p class="text-steel-light">Trading address</p><p class="text-bone">{company.tradingAddress}</p></div></li>
+          <li class="flex gap-3"><span class="text-teal-400">›</span><div><p class="text-steel-light">Registered office</p><p class="text-bone">{company.registeredOffice}</p></div></li>
+        </ul>
+        <div class="mt-8 overflow-hidden rounded-2xl border border-white/10">
+          <iframe
+            title="21 Degrees Heating - Battersea works location"
+            src="https://www.google.com/maps?q=Parkfield%20Industrial%20Estate%2C%20Culvert%20Place%2C%20London%20SW11%205BA&output=embed"
+            width="100%" height="240" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <!-- Enquiry form -->
+      <div class="rounded-3xl border border-white/10 bg-slate-800 p-7 lg:p-9">
+        <h3 class="font-display text-2xl font-semibold text-bone">Project &amp; tender enquiry</h3>
+        <p class="mt-1.5 text-sm text-steel-light">We typically respond within one working day.</p>
+        <form id="enquiry-form" class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2" novalidate>
+          <label class="flex flex-col gap-1.5 text-sm">
+            <span class="text-steel-light">Organisation *</span>
+            <input required name="organisation" class="form-input" autocomplete="organization" />
+          </label>
+          <label class="flex flex-col gap-1.5 text-sm">
+            <span class="text-steel-light">Your role</span>
+            <input name="role" class="form-input" />
+          </label>
+          <label class="flex flex-col gap-1.5 text-sm">
+            <span class="text-steel-light">Name *</span>
+            <input required name="name" class="form-input" autocomplete="name" />
+          </label>
+          <label class="flex flex-col gap-1.5 text-sm">
+            <span class="text-steel-light">Email *</span>
+            <input required type="email" name="email" class="form-input" autocomplete="email" />
+          </label>
+          <label class="flex flex-col gap-1.5 text-sm">
+            <span class="text-steel-light">Project type</span>
+            <select name="project_type" class="form-input">
+              <option value="">Select…</option>
+              <option>Plant room / energy centre</option>
+              <option>District heating</option>
+              <option>Heat pumps / renewables</option>
+              <option>Emergency boiler hire</option>
+              <option>Maintenance / PPM</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label class="flex flex-col gap-1.5 text-sm">
+            <span class="text-steel-light">Sector</span>
+            <select name="sector" class="form-input">
+              <option value="">Select…</option>
+              {sectors.map((s) => <option>{s.name}</option>)}
+            </select>
+          </label>
+          <label class="flex flex-col gap-1.5 text-sm">
+            <span class="text-steel-light">Estimated value</span>
+            <select name="value" class="form-input">
+              <option value="">Select…</option>
+              <option>Under £100k</option>
+              <option>£100k–£500k</option>
+              <option>£500k–£1M</option>
+              <option>£1M+</option>
+            </select>
+          </label>
+          <label class="flex flex-col gap-1.5 text-sm">
+            <span class="text-steel-light">Timeline</span>
+            <select name="timeline" class="form-input">
+              <option value="">Select…</option>
+              <option>Emergency / now</option>
+              <option>Within 3 months</option>
+              <option>3–6 months</option>
+              <option>6+ months / tender stage</option>
+            </select>
+          </label>
+          <label class="flex flex-col gap-1.5 text-sm sm:col-span-2">
+            <span class="text-steel-light">Message</span>
+            <textarea name="message" rows="4" class="form-input resize-y"></textarea>
+          </label>
+          <button type="submit" class="sm:col-span-2 rounded-full bg-teal px-6 py-3.5 text-base font-semibold text-bone transition-colors hover:bg-teal-600">Send enquiry</button>
+          <p class="sm:col-span-2 text-xs text-steel-light/80">By submitting you agree to our <a href="/privacy" class="underline underline-offset-2">privacy policy</a>. We use your details only to respond to your enquiry.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── CLOSING CTA ───────────── -->
+  <section class="bg-teal py-20 text-center text-bone lg:py-28">
+    <div class="mx-auto max-w-3xl px-5">
+      <h2 class="h-display text-4xl text-bone sm:text-5xl lg:text-6xl">
+        Bring us in <span class="font-semibold">at design stage.</span>
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-bone/85">
+        The earlier we’re involved, the more certainty we can build into your programme. Let’s talk through the scope.
+      </p>
+      <div class="mt-9 flex flex-wrap justify-center gap-3">
+        <a href={`tel:${company.phoneHref}`} class="rounded-full bg-slate-ink px-7 py-3.5 text-base font-semibold text-bone transition-colors hover:bg-slate-700 tnum">{company.phoneDisplay}</a>
+        <a href="/contact" class="rounded-full border border-bone/40 px-7 py-3.5 text-base font-semibold text-bone transition-colors hover:bg-bone/10">Send an enquiry</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .form-input {
+    border-radius: 0.65rem;
+    border: 1px solid color-mix(in srgb, #f4efe6 18%, transparent);
+    background-color: color-mix(in srgb, #16222a 60%, transparent);
+    padding: 0.6rem 0.85rem;
+    color: #f4efe6;
+    font-size: 0.95rem;
+  }
+  .form-input::placeholder { color: #6b7b85; }
+  .form-input:focus { outline: 2px solid #00769e; outline-offset: 1px; }
+  select.form-input option { color: #1c2a33; }
+</style>
+
+<script>
+  // Pragmatic, works-on-day-one fallback: compose a structured email.
+  // Upgrade path: point the form at a Pages Function / Formspree endpoint + ICO reg.
+  const form = document.getElementById('enquiry-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const lines = [
+      `Organisation: ${data.get('organisation') || ''}`,
+      `Role: ${data.get('role') || ''}`,
+      `Name: ${data.get('name') || ''}`,
+      `Email: ${data.get('email') || ''}`,
+      `Project type: ${data.get('project_type') || ''}`,
+      `Sector: ${data.get('sector') || ''}`,
+      `Estimated value: ${data.get('value') || ''}`,
+      `Timeline: ${data.get('timeline') || ''}`,
+      '',
+      `${data.get('message') || ''}`,
+    ].join('\n');
+    const subject = `Project enquiry - ${data.get('organisation') || 'website'}`;
+    window.location.href = `mailto:admin@21degreesheating.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines)}`;
+  });
+</script>

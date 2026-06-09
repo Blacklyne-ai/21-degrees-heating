@@ -1,0 +1,9 @@
+---
+// The client's real registered logo, cleaned to a transparent PNG.
+// Blue "21" mark + DEGREES + HEATING LIMITED — reads on both dark and light surfaces.
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<a href="/" class={`inline-flex items-center ${cls}`} aria-label="21 Degrees Heating Limited — home">
+  <img src="/logo.png" width="142" height="46" alt="21 Degrees Heating Limited" class="h-9 w-auto sm:h-10" />
+</a>
