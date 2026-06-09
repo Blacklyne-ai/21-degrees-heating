@@ -1,8 +1,7 @@
-# Cloudflare Pages 301 redirects — preserve existing WordPress URLs
-/about-us            /about                       301
-/about-us/           /about                       301
-/renewables          /services/heat-pumps         301
-/renewables/         /services/heat-pumps         301
-/contact/            /contact                      301
-/portfolio/          /portfolio                   301
-/accreditations/     /accreditations              301
+# Cloudflare Pages 301 redirects — only for old WordPress URLs whose slug CHANGED.
+# Same-slug paths (/contact, /portfolio, /accreditations) are served at both
+# /x and /x/ automatically — a self-referential redirect there causes a loop.
+/about-us            /about                  301
+/about-us/           /about                  301
+/renewables          /services/heat-pumps    301
+/renewables/         /services/heat-pumps    301
