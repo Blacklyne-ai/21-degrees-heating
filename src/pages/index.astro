@@ -214,7 +214,7 @@ const badgeRun = [...badges, ...badges];
       </div>
       <div data-stagger class="mt-12 grid gap-5 lg:grid-cols-12">
         {featured.map((p, i) => {
-          const img = getPhoto(`${p.photoPrefix}-01`)!;
+          const img = getPhoto(p.photos[0])!;
           const big = i === 0;
           return (
             <a href={`/portfolio/${p.slug}`} class={`group relative isolate flex flex-col justify-end overflow-hidden rounded-3xl bg-slate-ink reveal ${big ? 'lg:col-span-7 min-h-[26rem]' : 'lg:col-span-5 min-h-[20rem]'}`}>

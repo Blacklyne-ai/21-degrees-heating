@@ -190,8 +190,7 @@ export type Project = {
   scope: string[];
   specs: { label: string; value: string }[];
   narrative: string[];
-  photoPrefix: string;
-  photoCount: number;
+  photos: string[];
   // stylised map position (0–100 in viewBox space) across London & the South East
   map: { x: number; y: number };
 };
@@ -226,8 +225,7 @@ export const projects: Project[] = [
       'From there we installed new distribution pipework up to the two public viewing walkways to feed the existing radiators and new high-level space heating. The existing gas supply to the south-west tower boiler room was leaking and had to be replaced - running a new pipe from the existing gas meter room located on Shad Thames beneath the bridge, through the gift shop and up onto the Tower Bridge Approach footpath within a duct.',
       'All of this was carried out during the height of the tourist season. This was a complex project as we had to work around the public, staff and the busy traffic that crosses the bridge every day. Planning and preparation were key to the success of this project, which was completed on time.',
     ],
-    photoPrefix: 'tower-bridge',
-    photoCount: 6,
+    photos: ['tower-bridge-01', 'tower-bridge-02', 'tower-bridge-03', 'tower-bridge-04', 'tower-bridge-05', 'tower-bridge-06', 'tower-bridge-07'],
     map: { x: 58, y: 53 },
   },
   {
@@ -259,8 +257,7 @@ export const projects: Project[] = [
       'The satellite plantrooms were in the loft space of each block with a plate heat exchanger and hot water calorifiers. The main plantroom that fed the whole site consisted of six 250kW boilers, a plate heat exchanger and distribution pumps.',
       'We installed a new gas supply to the building from the existing supply 500m away. To keep the site running smoothly this was done using directional drilling - a specialist rig drills the full 500m length at roughly 1m depth, then pulls the new MDPE pipe back through. After installation we send a foam pig through under pressure to confirm no debris contaminated the pipe, then a remote-controlled camera the full length to check all is clear.',
     ],
-    photoPrefix: 'kingston-hill',
-    photoCount: 7,
+    photos: ['kingston-hill-01', 'kingston-hill-02', 'kingston-hill-03', 'kingston-hill-04', 'kingston-hill-05', 'kingston-hill-06', 'kingston-hill-07', 'kingston-hill-08', 'kingston-hill-09', 'kingston-hill-10', 'kingston-hill-11'],
     map: { x: 23, y: 70 },
   },
   {
@@ -290,8 +287,7 @@ export const projects: Project[] = [
       'Very similar to the Kingston Hill project, except the blocks are smaller and run heat-only domestic-type boilers. We installed new hot water cylinders and heating distribution to rooms and communal areas.',
       'Outside the blocks the gas network was upgraded, along with a new cold-water supply to all the blocks. We installed a new Air Source Heat Pump to feed one of the Victorian-built heritage buildings, supplying the heating and hot water primary pipework.',
     ],
-    photoPrefix: 'renewables',
-    photoCount: 3,
+    photos: ['renewables-02', 'plant-05', 'renewables-03'],
     map: { x: 15, y: 80 },
   },
   {
@@ -321,8 +317,7 @@ export const projects: Project[] = [
       'This was another complex project as we had to work alongside multiple trades in a heritage building. The work involved a new 6" in 8" gas distribution pipe within the building to supply the new level 3 plantroom and three commercial kitchens.',
       '21 Degrees Heating carried out the installation of the new plantroom and the distribution of the associated pipework to the new hotel rooms.',
     ],
-    photoPrefix: 'tower-bridge',
-    photoCount: 3,
+    photos: ['plant-01', 'plant-04'],
     map: { x: 52, y: 49 },
   },
   {
@@ -351,8 +346,7 @@ export const projects: Project[] = [
     narrative: [
       'These plantrooms fed varying-size blocks of the hospital in Canterbury. We carried out complete renewal of each plantroom from strip-out to commissioning and handover - new boilers, plate heat exchangers, pumps, pipework and new controls.',
     ],
-    photoPrefix: 'st-martins',
-    photoCount: 5,
+    photos: ['st-martins-01', 'st-martins-02', 'st-martins-03', 'st-martins-04', 'st-martins-05', 'st-martins-06'],
     map: { x: 93, y: 80 },
   },
   {
@@ -383,8 +377,7 @@ export const projects: Project[] = [
       '21 Degrees carried out the civils works installation of 2km of flow and return pre-insulated steel pipework. This involved excavation around the estate working in close proximity to the public, as well as organising road closures and traffic management with Southwark Council.',
       'All the pipework installed was carried out in accordance with Class 1 welding, and all welds were tested and numbered before being closed up using the specialist Mittel method of jointing.',
     ],
-    photoPrefix: 'middlesex-york',
-    photoCount: 4,
+    photos: ['plant-03', 'plant-05'],
     map: { x: 60, y: 60 },
   },
   {
@@ -415,8 +408,7 @@ export const projects: Project[] = [
       '21 Degrees Heating installed new plantrooms to each of these blocks, consisting of new boilers, buffer vessels, plate heat exchangers, pumps and pipework. At the same time we installed new distribution heating pipework from the plantrooms and new cold-water pipework to the various blocks, terminating outside each flat.',
       'After full pressure testing and insulation, these were handed over to the teams that carried out the in-flat installation of new HIUs and radiators.',
     ],
-    photoPrefix: 'middlesex-york',
-    photoCount: 7,
+    photos: ['middlesex-york-01', 'middlesex-york-02', 'middlesex-york-03', 'middlesex-york-04', 'middlesex-york-05', 'middlesex-york-06', 'middlesex-york-07', 'middlesex-york-08', 'middlesex-york-09'],
     map: { x: 52, y: 43 },
   },
   {
@@ -448,8 +440,7 @@ export const projects: Project[] = [
       'The centralised energy centre comprises three 1,500kW (1.5 megawatt) boilers providing a total of 4.5 megawatts of heat. These boilers leave the plant room via two plate heat exchangers and are distributed via pump sets for each leg of the estate. 21 Degrees carried out a complete strip-out and replacement of all plant, pipework (up to 24 inch) and insulation within the energy centre.',
       'The satellite plant rooms fed from the energy centre comprise a secondary heat exchanger, HWS calorifiers and circulating pumps out to the blocks. All interconnecting pipework, valves, ancillaries, filters and insulation were replaced. Once complete, the energy centre and satellite plant rooms were commissioned and set to work.',
     ],
-    photoPrefix: 'middlesex-york',
-    photoCount: 4,
+    photos: ['plant-02', 'plant-04', 'plant-05'],
     map: { x: 53, y: 67 },
   },
   {
@@ -478,8 +469,7 @@ export const projects: Project[] = [
     narrative: [
       'We completed a large Air Source Heat Pump scheme for Dartford Borough Council, upgrading their Civic Centre plant room to a system powered solely by Air Source - removing the building’s reliance on gas.',
     ],
-    photoPrefix: 'renewables',
-    photoCount: 3,
+    photos: ['renewables-01', 'renewables-03'],
     map: { x: 82, y: 61 },
   },
   {
@@ -508,8 +498,7 @@ export const projects: Project[] = [
     narrative: [
       'We regenerated the Orchard Theatres’ complete plant room in the same manner as Dartford Civic Centre, so as to become completely gas-free - an Air Source Heat Pump conversion delivered for a working cultural venue.',
     ],
-    photoPrefix: 'renewables',
-    photoCount: 3,
+    photos: ['renewables-03', 'renewables-01'],
     map: { x: 88, y: 68 },
   },
 ];

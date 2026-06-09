@@ -2,14 +2,14 @@
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import { projects, company } from '../../data/site';
-import { photosFor } from '../../lib/photos';
+import { getPhoto } from '../../lib/photos';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
 }
 
 const { project: p } = Astro.props;
-const gallery = photosFor(p.photoPrefix, p.photoCount);
+const gallery = p.photos.map((n) => getPhoto(n)).filter(Boolean) as import('astro').ImageMetadata[];
 const hero = gallery[0];
 const rest = gallery.slice(1);
 const related = projects.filter((r) => r.slug !== p.slug && r.sectorSlug === p.sectorSlug).slice(0, 3);

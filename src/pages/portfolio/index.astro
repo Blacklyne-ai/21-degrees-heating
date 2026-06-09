@@ -26,7 +26,7 @@ import { getPhoto } from '../../lib/photos';
     <div class="mx-auto max-w-7xl px-5 lg:px-8">
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((p) => {
-          const img = getPhoto(`${p.photoPrefix}-01`)!;
+          const img = getPhoto(p.photos[0])!;
           return (
             <a href={`/portfolio/${p.slug}`} class="group flex flex-col overflow-hidden rounded-3xl border border-slate-ink/10 bg-bone-200/40 transition-all hover:-translate-y-1 hover:border-teal/40 reveal">
               <div class="relative aspect-[4/3] overflow-hidden">
