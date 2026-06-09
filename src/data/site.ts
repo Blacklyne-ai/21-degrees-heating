@@ -527,7 +527,7 @@ export const accreditations: Accreditation[] = [
   { name: 'CHAS', full: 'Contractors Health & Safety Assessment Scheme', img: '/badges/chas.jpg', verify: 'https://www.chas.co.uk/' },
   { name: 'Constructionline', full: 'Constructionline Registered', img: '/badges/constructionline.jpg', verify: 'https://www.constructionline.co.uk/' },
   { name: 'Gas Safe', full: 'Gas Safe Registered', img: '/badges/gas-safe-1.png', verify: 'https://www.gassaferegister.co.uk/' },
-  { name: 'ISO', full: 'ISO Certified (certificate no. to be confirmed)', img: '/badges/iso.png', verify: 'https://www.iso.org/' },
+  { name: 'ISO', full: 'ISO Certified (certificate no. to be confirmed)', verify: 'https://www.iso.org/' },
   { name: 'MCS', full: 'Microgeneration Certification Scheme', img: '/badges/mcs.jpg', verify: 'https://mcscertified.com/' },
   { name: 'RECC', full: 'Renewable Energy Consumer Code · member 00075844', verify: 'https://recc.org.uk/' },
   { name: 'PASMA', full: 'Mobile Access Tower Safety', img: '/badges/pasma.png', verify: 'https://pasma.co.uk/' },

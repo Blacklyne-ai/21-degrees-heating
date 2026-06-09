@@ -8,7 +8,7 @@ import ClosingCTA from '../components/ClosingCTA.astro';
 import { company, sectors, services, projects, reasons, accreditations } from '../data/site';
 import { getPhoto } from '../lib/photos';
 
-const hero = getPhoto('tower-bridge-01')!;
+const hero = getPhoto('fleet')!;
 const featured = ['tower-bridge', 'kingston-hill', 'aylesbury-estate'].map(
   (s) => projects.find((p) => p.slug === s)!,
 );
@@ -19,6 +19,8 @@ const marqueeItems = [
   'Social Housing', 'NHS Healthcare', 'Heritage', 'Education', 'Local Authority',
   'Commercial', 'District Heating', 'Plant Rooms', 'Emergency Boiler Hire', 'ASHP & Renewables',
 ];
+const badges = accreditations.filter((a) => a.img);
+const badgeRun = [...badges, ...badges];
 ---
 <Base
   title="21 Degrees Heating - Commercial M&E Heating Contractor, London"
@@ -30,22 +32,22 @@ const marqueeItems = [
     <div class="absolute inset-0 -z-20 overflow-hidden" data-parallax="0.18">
       <Image
         src={hero}
-        alt="New boiler plant and distribution pipework installed by 21 Degrees Heating inside a Tower Bridge plant room"
-        class="kenburns h-[118%] w-full object-cover opacity-70"
+        alt="The 21 Degrees Heating fleet of branded vans at the Battersea works"
+        class="kenburns h-[118%] w-full object-cover"
         widths={[768, 1280, 1920]}
         sizes="100vw"
         loading="eager"
         fetchpriority="high"
       />
     </div>
-    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-slate-ink via-slate-ink/85 to-slate-ink/20"></div>
-    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-slate-ink via-transparent to-slate-ink/40"></div>
-    <!-- Blueprint grid + ghost depth layer -->
-    <svg class="absolute inset-0 -z-10 h-full w-full opacity-[0.07]" aria-hidden="true">
+    <!-- Scrim: dark on the left for headline legibility, vans stay visible on the right -->
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-slate-ink via-slate-ink/88 to-slate-ink/35"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-slate-ink/85 via-slate-ink/15 to-slate-ink/55"></div>
+    <!-- Blueprint grid -->
+    <svg class="absolute inset-0 -z-10 h-full w-full opacity-[0.06]" aria-hidden="true">
       <defs><pattern id="hgrid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#F4EFE6" stroke-width="1"/></pattern></defs>
       <rect width="100%" height="100%" fill="url(#hgrid)"/>
     </svg>
-    <span class="ghost absolute -bottom-10 right-2 -z-10 text-[26vw] text-bone lg:text-[20vw]" aria-hidden="true">21°</span>
 
     <div class="mx-auto w-full max-w-7xl px-5 pb-20 pt-32 lg:px-8 lg:pb-28">
       <p class="eyebrow enter text-teal-400" style="--d:80ms">Commercial M&amp;E Heating · London &amp; the Home Counties</p>
@@ -80,7 +82,7 @@ const marqueeItems = [
   <!-- ───────────── STAT BAND (floats over hero seam) ───────────── -->
   <section class="relative z-20 -mt-14 lg:-mt-20" aria-label="Company at a glance">
     <div class="mx-auto max-w-7xl px-5 lg:px-8">
-      <div class="glass grid grid-cols-2 overflow-hidden rounded-3xl lg:grid-cols-4" data-stagger>
+      <div class="grid grid-cols-2 overflow-hidden rounded-3xl border border-slate-ink/10 bg-bone shadow-[0_28px_64px_-24px_rgba(28,42,51,0.55)] lg:grid-cols-4" data-stagger>
         <div class="reveal border-b border-slate-ink/8 px-6 py-8 sm:border-r lg:border-b-0">
           <p class="font-display text-4xl font-semibold text-slate-ink lg:text-5xl">Since 2004</p>
           <p class="mt-2 text-sm leading-snug text-steel">22 years of M&amp;E delivery</p>
@@ -101,15 +103,19 @@ const marqueeItems = [
     </div>
   </section>
 
-  <!-- ───────────── TRUST BADGE STRIP ───────────── -->
-  <section class="bg-bone py-12" aria-label="Accreditations">
-    <div class="mx-auto max-w-7xl px-5 lg:px-8">
-      <p class="mb-6 text-center text-sm font-medium text-steel">Independently accredited - verified by the bodies that govern our trade</p>
-      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-5">
-        {accreditations.filter((a) => a.img).map((a) => (
-          <img src={a.img} alt={a.full} width="120" height="48" loading="lazy" class="h-10 w-auto object-contain opacity-80 grayscale transition hover:opacity-100 hover:grayscale-0" title={a.full} />
+  <!-- ───────────── TRUST BADGE MARQUEE ───────────── -->
+  <section class="bg-bone py-12 lg:py-14" aria-label="Accreditations">
+    <div class="mx-auto mb-7 flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 lg:px-8">
+      <p class="text-sm font-medium text-steel">Independently accredited - verified by the bodies that govern our trade</p>
+      <a href="/accreditations" class="whitespace-nowrap text-sm font-semibold text-teal hover:text-teal-600">All 12 accreditations &rarr;</a>
+    </div>
+    <div class="relative overflow-hidden" style="-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)">
+      <div class="marquee-track marquee-slow">
+        {badgeRun.map((a) => (
+          <div class="mx-3 flex h-[4.5rem] w-40 flex-none items-center justify-center rounded-2xl border border-slate-ink/10 bg-bone-200/40 px-5">
+            <img src={a.img} alt={a.full} loading="lazy" class="max-h-10 w-auto object-contain" title={a.full} />
+          </div>
         ))}
-        <a href="/accreditations" class="text-sm font-semibold text-teal hover:text-teal-600">All 12 &rarr;</a>
       </div>
     </div>
   </section>

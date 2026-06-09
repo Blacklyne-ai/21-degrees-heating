@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 /* Self-hosted variable fonts - no third-party requests (GDPR + Lighthouse clean) */
-@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/archivo';
 @import '@fontsource-variable/inter';
 
 /* ─────────────────────────────────────────────────────────────
@@ -22,7 +22,7 @@
   --color-steel: #6b7b85;
   --color-steel-light: #8a98a0;
 
-  --font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+  --font-display: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
 
   --radius-2xl: 1rem;
@@ -76,13 +76,12 @@
     color: var(--color-teal);
   }
 
-  /* Display headline defaults - tight, negative tracking */
+  /* Display headline defaults - corporate grotesque, tight tracking */
   .h-display {
     font-family: var(--font-display);
-    font-weight: 380;
-    line-height: 1.04;
-    letter-spacing: -0.025em;
-    font-optical-sizing: auto;
+    font-weight: 420;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
   }
 
   /* Reveal-on-scroll — supports direction + per-item stagger via --d */
@@ -140,14 +139,14 @@
 
   /* Glassmorphism — only meaningful over imagery/gradients/colour */
   .glass {
-    background-color: color-mix(in srgb, var(--color-bone) 60%, transparent);
+    background-color: color-mix(in srgb, var(--color-bone) 78%, transparent);
     backdrop-filter: blur(20px) saturate(1.4);
     -webkit-backdrop-filter: blur(20px) saturate(1.4);
     border: 1px solid color-mix(in srgb, #ffffff 55%, transparent);
     box-shadow: 0 24px 60px -26px rgba(28,42,51,0.55), inset 0 1px 0 0 rgba(255,255,255,0.55);
   }
   .glass-dark {
-    background-color: color-mix(in srgb, var(--color-slate-900) 34%, transparent);
+    background-color: color-mix(in srgb, var(--color-slate-900) 52%, transparent);
     backdrop-filter: blur(20px) saturate(1.2);
     -webkit-backdrop-filter: blur(20px) saturate(1.2);
     border: 1px solid color-mix(in srgb, #ffffff 14%, transparent);
@@ -176,6 +175,8 @@
     white-space: nowrap;
     animation: marquee 38s linear infinite;
   }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-slow { animation-duration: 46s; }
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
