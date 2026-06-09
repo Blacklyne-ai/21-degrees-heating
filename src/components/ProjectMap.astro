@@ -3,8 +3,10 @@ import { projects, sectors } from '../data/site';
 // Distinct sectors present in the project set, in display order
 const sectorList = sectors.filter((s) => projects.some((p) => p.sectorSlug === s.slug));
 ---
-<section class="bg-slate-ink py-20 text-bone lg:py-28" aria-labelledby="map-heading">
-  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+<section class="relative isolate overflow-hidden bg-slate-ink py-20 text-bone lg:py-28" aria-labelledby="map-heading">
+  <!-- teal glow so the glass card has colour to frost -->
+  <div class="pointer-events-none absolute -right-32 top-1/3 -z-0 h-[34rem] w-[34rem] rounded-full bg-teal/20 blur-[120px]" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-7xl px-5 lg:px-8">
     <div class="max-w-2xl reveal">
       <p class="eyebrow mb-3">Ten named projects · one map</p>
       <h2 id="map-heading" class="h-display text-4xl text-bone sm:text-5xl">
@@ -17,9 +19,9 @@ const sectorList = sectors.filter((s) => projects.some((p) => p.sectorSlug === s
 
     <!-- Sector filter -->
     <div class="mt-8 flex flex-wrap gap-2 reveal" role="group" aria-label="Filter projects by sector">
-      <button data-filter="all" class="map-filter is-active rounded-full border border-white/20 px-4 py-1.5 text-sm font-medium transition-colors">All sectors</button>
+      <button data-filter="all" class="map-filter is-active rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium backdrop-blur-sm transition-colors">All sectors</button>
       {sectorList.map((s) => (
-        <button data-filter={s.slug} class="map-filter rounded-full border border-white/20 px-4 py-1.5 text-sm font-medium transition-colors">{s.name}</button>
+        <button data-filter={s.slug} class="map-filter rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium backdrop-blur-sm transition-colors">{s.name}</button>
       ))}
     </div>
 
@@ -67,7 +69,7 @@ const sectorList = sectors.filter((s) => projects.some((p) => p.sectorSlug === s
 
       <!-- Detail card / list fallback -->
       <div>
-        <div id="map-detail" class="rounded-3xl border border-white/10 bg-slate-800 p-6 reveal">
+        <div id="map-detail" class="glass-dark rounded-3xl p-6 reveal">
           <p class="eyebrow" id="md-sector">Heritage</p>
           <h3 class="mt-2 font-display text-2xl font-semibold text-bone" id="md-name">Tower Bridge</h3>
           <p class="mt-1 text-3xl font-semibold text-teal-400 tnum" id="md-value">£800,000</p>

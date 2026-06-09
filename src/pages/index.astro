@@ -80,7 +80,7 @@ const marqueeItems = [
   <!-- ───────────── STAT BAND (floats over hero seam) ───────────── -->
   <section class="relative z-20 -mt-14 lg:-mt-20" aria-label="Company at a glance">
     <div class="mx-auto max-w-7xl px-5 lg:px-8">
-      <div class="grid grid-cols-2 overflow-hidden rounded-3xl border border-slate-ink/10 bg-bone shadow-[0_24px_60px_-22px_rgba(28,42,51,0.45)] lg:grid-cols-4" data-stagger>
+      <div class="glass grid grid-cols-2 overflow-hidden rounded-3xl lg:grid-cols-4" data-stagger>
         <div class="reveal border-b border-slate-ink/8 px-6 py-8 sm:border-r lg:border-b-0">
           <p class="font-display text-4xl font-semibold text-slate-ink lg:text-5xl">Since 2004</p>
           <p class="mt-2 text-sm leading-snug text-steel">22 years of M&amp;E delivery</p>
@@ -212,13 +212,13 @@ const marqueeItems = [
           const big = i === 0;
           return (
             <a href={`/portfolio/${p.slug}`} class={`group relative isolate flex flex-col justify-end overflow-hidden rounded-3xl bg-slate-ink reveal ${big ? 'lg:col-span-7 min-h-[26rem]' : 'lg:col-span-5 min-h-[20rem]'}`}>
-              <Image src={img} alt={`${p.name} project`} class="absolute inset-0 -z-10 h-full w-full object-cover opacity-65 transition-transform duration-700 group-hover:scale-105" widths={[480, 800, 1200]} sizes="(max-width:1024px) 100vw, 50vw" />
-              <div class="absolute inset-0 -z-10 bg-gradient-to-t from-slate-ink via-slate-ink/55 to-transparent"></div>
-              <div class="p-7">
-                <span class="rounded-full bg-bone/15 px-3 py-1 text-xs font-medium text-bone backdrop-blur-sm">{p.sector}</span>
+              <Image src={img} alt={`${p.name} project`} class="absolute inset-0 -z-10 h-full w-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105" widths={[480, 800, 1200]} sizes="(max-width:1024px) 100vw, 50vw" />
+              <div class="absolute inset-0 -z-10 bg-gradient-to-t from-slate-ink/85 via-slate-ink/25 to-transparent"></div>
+              <div class="glass-dark m-4 rounded-2xl p-6 transition-colors duration-300 group-hover:border-teal/40">
+                <span class="rounded-full bg-teal/25 px-3 py-1 text-xs font-medium text-bone">{p.sector}</span>
                 <h3 class="mt-4 font-display text-2xl font-semibold text-bone lg:text-3xl">{p.name}</h3>
                 <p class="mt-1 text-2xl font-semibold text-teal-400 tnum">{p.value}</p>
-                <p class="mt-2 max-w-md text-sm leading-relaxed text-bone/75">{p.summary}</p>
+                <p class="mt-2 max-w-md text-sm leading-relaxed text-bone/80">{p.summary}</p>
               </div>
             </a>
           );
