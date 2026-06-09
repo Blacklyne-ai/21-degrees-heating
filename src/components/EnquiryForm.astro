@@ -1,0 +1,110 @@
+---
+import { sectors } from '../data/site';
+interface Props { heading?: string; sub?: string }
+const { heading = 'Project & tender enquiry', sub = 'We typically respond within one working day.' } = Astro.props;
+---
+<div class="rounded-3xl border border-white/10 bg-slate-800 p-7 lg:p-9">
+  <h3 class="font-display text-2xl font-semibold text-bone">{heading}</h3>
+  <p class="mt-1.5 text-sm text-steel-light">{sub}</p>
+  <form id="enquiry-form" class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2" novalidate>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="text-steel-light">Organisation *</span>
+      <input required name="organisation" class="form-input" autocomplete="organization" />
+    </label>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="text-steel-light">Your role</span>
+      <input name="role" class="form-input" />
+    </label>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="text-steel-light">Name *</span>
+      <input required name="name" class="form-input" autocomplete="name" />
+    </label>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="text-steel-light">Email *</span>
+      <input required type="email" name="email" class="form-input" autocomplete="email" />
+    </label>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="text-steel-light">Project type</span>
+      <select name="project_type" class="form-input">
+        <option value="">Select…</option>
+        <option>Plant room / energy centre</option>
+        <option>District heating</option>
+        <option>Heat pumps / renewables</option>
+        <option>Emergency boiler hire</option>
+        <option>Maintenance / PPM</option>
+        <option>Other</option>
+      </select>
+    </label>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="text-steel-light">Sector</span>
+      <select name="sector" class="form-input">
+        <option value="">Select…</option>
+        {sectors.map((s) => <option>{s.name}</option>)}
+      </select>
+    </label>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="text-steel-light">Estimated value</span>
+      <select name="value" class="form-input">
+        <option value="">Select…</option>
+        <option>Under £100k</option>
+        <option>£100k–£500k</option>
+        <option>£500k–£1M</option>
+        <option>£1M+</option>
+      </select>
+    </label>
+    <label class="flex flex-col gap-1.5 text-sm">
+      <span class="text-steel-light">Timeline</span>
+      <select name="timeline" class="form-input">
+        <option value="">Select…</option>
+        <option>Emergency / now</option>
+        <option>Within 3 months</option>
+        <option>3–6 months</option>
+        <option>6+ months / tender stage</option>
+      </select>
+    </label>
+    <label class="flex flex-col gap-1.5 text-sm sm:col-span-2">
+      <span class="text-steel-light">Message</span>
+      <textarea name="message" rows="4" class="form-input resize-y"></textarea>
+    </label>
+    <button type="submit" class="sm:col-span-2 rounded-full bg-teal px-6 py-3.5 text-base font-semibold text-bone transition-colors hover:bg-teal-600">Send enquiry</button>
+    <p class="sm:col-span-2 text-xs text-steel-light/80">By submitting you agree to our <a href="/privacy" class="underline underline-offset-2">privacy policy</a>. We use your details only to respond to your enquiry.</p>
+  </form>
+</div>
+
+<style>
+  .form-input {
+    border-radius: 0.65rem;
+    border: 1px solid color-mix(in srgb, #f4efe6 18%, transparent);
+    background-color: color-mix(in srgb, #16222a 60%, transparent);
+    padding: 0.6rem 0.85rem;
+    color: #f4efe6;
+    font-size: 0.95rem;
+  }
+  .form-input::placeholder { color: #6b7b85; }
+  .form-input:focus { outline: 2px solid #00769e; outline-offset: 1px; }
+  select.form-input option { color: #1c2a33; }
+</style>
+
+<script>
+  // Works-on-day-one fallback: compose a structured email.
+  // Upgrade path: point the form at a Pages Function / Formspree endpoint + ICO reg.
+  const form = document.getElementById('enquiry-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const lines = [
+      `Organisation: ${data.get('organisation') || ''}`,
+      `Role: ${data.get('role') || ''}`,
+      `Name: ${data.get('name') || ''}`,
+      `Email: ${data.get('email') || ''}`,
+      `Project type: ${data.get('project_type') || ''}`,
+      `Sector: ${data.get('sector') || ''}`,
+      `Estimated value: ${data.get('value') || ''}`,
+      `Timeline: ${data.get('timeline') || ''}`,
+      '',
+      `${data.get('message') || ''}`,
+    ].join('\n');
+    const subject = `Project enquiry — ${data.get('organisation') || 'website'}`;
+    window.location.href = `mailto:admin@21degreesheating.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines)}`;
+  });
+</script>

@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ClosingCTA from '../../components/ClosingCTA.astro';
+import { services, company } from '../../data/site';
+---
+<Base
+  title="Services — 21 Degrees Heating"
+  description="Nine in-house M&E services: plant rooms, district heating, heat pumps, electrical & BMS, ventilation, ground works, emergency boiler hire, maintenance, design & fabrication."
+>
+  <PageHeader
+    eyebrow="Nine in-house services"
+    title='Concept to commissioning, <span class="font-semibold">under one roof.</span>'
+    sub="Design, fabrication, installation and maintenance - delivered by our own people, not a subcontracted chain. That is where delivery certainty comes from."
+    ghost="09"
+  />
+
+  <section class="bg-bone py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+        {services.map((sv) => (
+          <a href={`/services/${sv.slug}`} class={`lift group flex flex-col rounded-3xl border p-7 reveal ${sv.featured ? 'border-teal/50 bg-teal/5 hover:bg-teal/10' : 'border-slate-ink/10 bg-bone-200/40 hover:border-teal/40 hover:bg-bone-200'}`}>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-2xl font-semibold text-teal tnum">{sv.no}</span>
+              {sv.featured && <span class="rounded-full bg-teal px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-bone">24/7</span>}
+            </div>
+            <h2 class="mt-4 font-display text-xl font-semibold text-slate-ink">{sv.name}</h2>
+            <p class="mt-1 text-xs font-medium uppercase tracking-wide text-steel">{sv.tag}</p>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-slate-ink/70">{sv.blurb}</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-ink transition-colors group-hover:text-teal">
+              Learn more
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Emergency strip -->
+      <div class="mt-10 flex flex-col items-start gap-5 rounded-3xl bg-slate-ink p-8 text-bone lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <p class="eyebrow text-teal-400">Our own fleet · 100kW–2MW</p>
+          <p class="mt-2 font-display text-2xl font-semibold">Plant down? We hold temporary boilers ready to mobilise.</p>
+        </div>
+        <a href={`tel:${company.phoneHref}`} class="flex-none rounded-full bg-teal px-7 py-3.5 font-semibold text-bone transition-colors hover:bg-teal-600 tnum">Call {company.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+
+  <ClosingCTA />
+</Base>

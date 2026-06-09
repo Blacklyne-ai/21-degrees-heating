@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ClosingCTA from '../components/ClosingCTA.astro';
+import { accreditations } from '../data/site';
+---
+<Base
+  title="Accreditations — 21 Degrees Heating"
+  description="Twelve industry accreditations: SafeContractor, CHAS, Constructionline, Gas Safe, ISO, MCS, RECC, PASMA, UKATA, CSCS/CITB, NICEIC and IPAF. Plus first-aid trained operatives on every site."
+>
+  <PageHeader
+    eyebrow="Twelve accreditations"
+    title='Credentials that <span class="font-semibold">survive a pre-qualification.</span>'
+    sub="Health and safety, gas, electrical, renewables and access - independently certified by the bodies that govern our trade. Click any badge to verify."
+    ghost="12"
+  />
+
+  <section class="bg-bone py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+        {accreditations.map((a, i) => (
+          <a href={a.verify} target="_blank" rel="noopener noreferrer" class="lift group flex items-center gap-5 rounded-3xl border border-slate-ink/10 bg-bone-200/40 p-6 hover:border-teal/40 hover:bg-bone-200 reveal">
+            <div class="grid h-20 w-20 flex-none place-items-center rounded-2xl bg-bone p-2.5">
+              {a.img
+                ? <img src={a.img} alt={a.full} width="120" height="120" loading="lazy" class="h-full w-full object-contain" />
+                : <span class="font-display text-lg font-semibold text-teal">{a.name}</span>}
+            </div>
+            <div>
+              <p class="text-[0.7rem] font-semibold uppercase tracking-wide text-teal">{String(i + 1).padStart(2, '0')}</p>
+              <h2 class="font-display text-lg font-semibold text-slate-ink">{a.name}</h2>
+              <p class="mt-0.5 text-xs leading-snug text-slate-ink/60">{a.full}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-8 rounded-3xl border border-slate-ink/10 bg-slate-ink p-7 text-bone">
+        <p class="font-display text-lg font-semibold">Plus: first-aid trained operatives on every site.</p>
+        <p class="mt-1.5 text-sm text-steel-light">Some certificate numbers (ISO standard, any recently renewed schemes) are to be confirmed with the client and will be reflected here once provided.</p>
+      </div>
+    </div>
+  </section>
+
+  <ClosingCTA
+    title='Need our certificates for a tender? <span class="font-semibold">We’ll send them over.</span>'
+    sub="Insurances, accreditation certificates and our capability statement are ready for pre-qualification packs."
+  />
+</Base>

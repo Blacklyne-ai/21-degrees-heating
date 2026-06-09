@@ -1,0 +1,18 @@
+---
+import { company } from '../data/site';
+interface Props { title?: string; sub?: string }
+const {
+  title = 'Bring us in <span class="font-semibold">at design stage.</span>',
+  sub = 'The earlier we’re involved, the more certainty we can build into your programme. Let’s talk through the scope.',
+} = Astro.props;
+---
+<section class="bg-teal py-20 text-center text-bone lg:py-28">
+  <div class="mx-auto max-w-3xl px-5">
+    <h2 class="h-display text-4xl text-bone sm:text-5xl lg:text-6xl" set:html={title}></h2>
+    <p class="mx-auto mt-5 max-w-xl text-lg text-bone/85">{sub}</p>
+    <div class="mt-9 flex flex-wrap justify-center gap-3">
+      <a href={`tel:${company.phoneHref}`} class="rounded-full bg-slate-ink px-7 py-3.5 text-base font-semibold text-bone transition-colors hover:bg-slate-700 tnum">{company.phoneDisplay}</a>
+      <a href="/contact" class="rounded-full border border-bone/40 px-7 py-3.5 text-base font-semibold text-bone transition-colors hover:bg-bone/10">Send an enquiry</a>
+    </div>
+  </div>
+</section>

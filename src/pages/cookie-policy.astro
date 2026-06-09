@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { company } from '../data/site';
+const updated = '09/06/2026';
+---
+<Base
+  title="Cookie Policy — 21 Degrees Heating"
+  description="How 21 Degrees Heating uses cookies, and how to accept, reject or control them, under UK PECR and UK GDPR."
+>
+  <PageHeader eyebrow="Legal" title='<span class="font-semibold">Cookie policy</span>' sub={`What cookies we use and how to control them. Last updated: ${updated}.`} />
+
+  <section class="bg-bone py-16 lg:py-24">
+    <article class="legal mx-auto max-w-3xl px-5 lg:px-8">
+      <h2>What cookies are</h2>
+      <p>Cookies are small text files stored on your device when you visit a website. They help the site work and can help us understand how it is used.</p>
+
+      <h2>How we use cookies</h2>
+      <p>We keep cookies to a minimum. When you first visit, we show a banner letting you <strong>accept</strong> or <strong>reject</strong> non-essential cookies, with both choices given equal prominence. Your choice is saved on your device, and you can change it at any time by clearing your browser storage for this site.</p>
+
+      <h3>Strictly necessary</h3>
+      <ul>
+        <li>A small record of your cookie choice (so we do not ask again on every page). This is essential and cannot be switched off.</li>
+      </ul>
+
+      <h3>Analytics (optional)</h3>
+      <ul>
+        <li>If you accept, we may set privacy-respecting analytics cookies to understand which pages are useful. These are only set after you accept, and never if you reject.</li>
+      </ul>
+      <p>We do not use advertising or cross-site tracking cookies. We self-host our fonts, so no third-party font cookies are set.</p>
+
+      <h2>Controlling cookies</h2>
+      <p>You can reject non-essential cookies via our banner, and you can delete cookies through your browser settings at any time. Blocking essential cookies may affect how the site works.</p>
+
+      <h2>More information</h2>
+      <p>For how we handle personal data, see our <a href="/privacy">privacy policy</a>. Questions? Contact <a href={`mailto:${company.email}`}>{company.email}</a>.</p>
+    </article>
+  </section>
+</Base>

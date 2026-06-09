@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ClosingCTA from '../../components/ClosingCTA.astro';
+import { services, sectors, company } from '../../data/site';
+import { serviceDetail, sectorDetail } from '../../data/details';
+import { getPhoto } from '../../lib/photos';
+
+export function getStaticPaths() {
+  return services.map((sv) => ({ params: { slug: sv.slug }, props: { service: sv } }));
+}
+const { service: sv } = Astro.props;
+const detail = serviceDetail[sv.slug];
+
+// feature image per service
+const imgMap: Record<string, string> = {
+  'plant-rooms': 'middlesex-york-01',
+  'district-heating': 'middlesex-york-05',
+  'heat-pumps': 'renewables-01',
+  'electrical-bms': 'st-martins-03',
+  'ventilation-ac': 'kingston-hill-03',
+  'ground-works': 'kingston-hill-01',
+  'emergency-boiler-hire': 'tower-bridge-05',
+  maintenance: 'st-martins-02',
+  'design-fabrication': 'tower-bridge-02',
+};
+const feature = getPhoto(imgMap[sv.slug] ?? 'tower-bridge-01')!;
+// sectors that use this service
+const usedBy = sectors.filter((s) => (sectorDetail[s.slug]?.services ?? []).includes(sv.slug));
+const isEmergency = sv.slug === 'emergency-boiler-hire';
+---
+<Base
+  title={`${sv.name} — Service | 21 Degrees Heating`}
+  description={sv.blurb}
+>
+  <PageHeader
+    eyebrow={`Service ${sv.no} · ${sv.tag}`}
+    title={`<span class="font-semibold">${sv.name}</span>`}
+    sub={sv.blurb}
+    ghost={sv.no}
+  />
+
+  {isEmergency && (
+    <section class="bg-teal py-6 text-bone">
+      <div class="mx-auto flex max-w-7xl flex-col items-start gap-4 px-5 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+        <p class="font-display text-xl font-semibold">System failed? We mobilise temporary boiler plant fast.</p>
+        <a href={`tel:${company.phoneHref}`} class="flex-none rounded-full bg-slate-ink px-7 py-3 font-semibold text-bone transition-colors hover:bg-slate-700 tnum">Call {company.phoneDisplay}</a>
+      </div>
+    </section>
+  )}
+
+  <!-- Intro + image -->
+  <section class="bg-bone py-16 lg:py-24">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-2 lg:px-8">
+      <div class="reveal">
+        <p class="eyebrow mb-3">The service</p>
+        <div class="space-y-4 text-lg leading-relaxed text-slate-ink/80">
+          {detail?.intro.map((p) => <p>{p}</p>)}
+        </div>
+        <a href="/contact" class="mt-7 inline-flex items-center gap-1.5 rounded-full bg-slate-ink px-6 py-3 text-sm font-semibold text-bone transition-colors hover:bg-slate-700">Discuss this service</a>
+      </div>
+      <div class="relative overflow-hidden rounded-3xl reveal reveal-r">
+        <Image src={feature} alt={`${sv.name} - 21 Degrees Heating`} class="h-full w-full object-cover" widths={[480, 800]} sizes="(max-width:1024px) 100vw, 50vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section class="bg-slate-ink py-16 text-bone lg:py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <p class="eyebrow mb-8">What’s included</p>
+      <div class="grid gap-px overflow-hidden rounded-3xl border border-white/10 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+        {detail?.points.map((pt, i) => (
+          <div class="bg-slate-800 p-7 reveal">
+            <span class="font-display text-2xl font-semibold text-teal-400 tnum">{String(i + 1).padStart(2, '0')}</span>
+            <p class="mt-3 text-sm leading-relaxed text-bone/85">{pt}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Used by sectors -->
+  {usedBy.length > 0 && (
+    <section class="bg-bone py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <p class="eyebrow mb-6">Where we use it</p>
+        <div class="flex flex-wrap gap-3" data-stagger>
+          {usedBy.map((s) => (
+            <a href={`/sectors/${s.slug}`} class="reveal rounded-full border border-slate-ink/15 bg-bone-200/50 px-5 py-2.5 text-sm font-medium text-slate-ink transition-colors hover:border-teal/50 hover:text-teal">{s.name}</a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <ClosingCTA title={`Need ${sv.name.toLowerCase()}? <span class="font-semibold">Let’s talk.</span>`} />
+</Base>

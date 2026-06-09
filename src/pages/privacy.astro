@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { company } from '../data/site';
+const updated = '09/06/2026';
+---
+<Base
+  title="Privacy Policy — 21 Degrees Heating"
+  description="How 21 Degrees Heating Limited collects, uses and protects your personal data under UK GDPR and the Data Protection Act 2018."
+>
+  <PageHeader eyebrow="Legal" title='<span class="font-semibold">Privacy policy</span>' sub={`How we handle your personal data under UK GDPR. Last updated: ${updated}.`} />
+
+  <section class="bg-bone py-16 lg:py-24">
+    <article class="legal mx-auto max-w-3xl px-5 lg:px-8">
+      <h2>Who we are</h2>
+      <p>This website is operated by <strong>{company.legalName}</strong> (“we”, “us”, “our”), a company registered in England &amp; Wales under company number {company.companyNumber}. Our registered office is {company.registeredOffice} and our trading address is {company.tradingAddress}.</p>
+      <p>We are the data controller for personal data collected through this website. For any privacy matter, contact us at <a href={`mailto:${company.email}`}>{company.email}</a> or {company.phoneDisplay}.</p>
+
+      <h2>What data we collect</h2>
+      <p>We only collect the personal data you choose to give us, principally through our enquiry form. This may include:</p>
+      <ul>
+        <li>Your name and the organisation you represent</li>
+        <li>Your role, email address and phone number</li>
+        <li>Project details you provide (type, sector, estimated value, timeline and message)</li>
+      </ul>
+      <p>We do not collect special category data, and we do not knowingly collect data from children.</p>
+
+      <h2>How we use it, and our lawful basis</h2>
+      <p>We use your data to respond to your enquiry, to provide quotations and project information, and to manage our working relationship with you. Our lawful basis is <strong>legitimate interests</strong> (responding to a business enquiry you have initiated) and, where relevant, <strong>taking steps to enter into a contract</strong>. We do not use your data for marketing without your consent.</p>
+
+      <h2>Sharing your data</h2>
+      <p>We do not sell your data. We may share it with trusted service providers who help us operate (for example email and hosting providers), who act only on our instructions. Our website is hosted on Cloudflare Pages. We may disclose data where required by law.</p>
+
+      <h2>How long we keep it</h2>
+      <p>We keep enquiry data only as long as necessary to deal with your enquiry and for our legitimate business records, after which it is securely deleted.</p>
+
+      <h2>Your rights</h2>
+      <p>Under UK GDPR you have the right to access, rectify or erase your data, to restrict or object to processing, and to data portability. To exercise any right, contact us using the details above.</p>
+      <p>You also have the right to complain to the Information Commissioner’s Office (ICO) at <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer">ico.org.uk</a>. {company.ico}.</p>
+
+      <h2>Cookies</h2>
+      <p>We use a small number of cookies. See our <a href="/cookie-policy">cookie policy</a> for details and how to control them.</p>
+
+      <h2>Changes</h2>
+      <p>We may update this policy from time to time. The date at the top shows when it was last revised.</p>
+    </article>
+  </section>
+</Base>

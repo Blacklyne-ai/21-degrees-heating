@@ -1,0 +1,21 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  sub?: string;
+  ghost?: string;
+}
+const { eyebrow, title, sub, ghost } = Astro.props;
+---
+<section class="relative isolate overflow-hidden bg-slate-ink pt-36 pb-16 text-bone lg:pt-44 lg:pb-20">
+  <svg class="absolute inset-0 -z-10 h-full w-full opacity-[0.06]" aria-hidden="true">
+    <defs><pattern id="ph-grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#F4EFE6" stroke-width="1"/></pattern></defs>
+    <rect width="100%" height="100%" fill="url(#ph-grid)"/>
+  </svg>
+  {ghost && <span class="ghost absolute -bottom-12 right-0 -z-10 text-[22vw] text-bone lg:text-[15vw]" aria-hidden="true">{ghost}</span>}
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <p class="eyebrow enter mb-3 text-teal-400" style="--d:60ms">{eyebrow}</p>
+    <h1 class="h-display enter max-w-4xl text-5xl text-bone sm:text-6xl lg:text-7xl" style="--d:140ms" set:html={title}></h1>
+    {sub && <p class="enter mt-5 max-w-2xl text-lg leading-relaxed text-bone/80" style="--d:260ms">{sub}</p>}
+  </div>
+</section>

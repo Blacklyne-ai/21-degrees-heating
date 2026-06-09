@@ -138,6 +138,17 @@
     user-select: none; pointer-events: none;
   }
 
+  /* Legal / prose pages */
+  .legal { color: color-mix(in srgb, var(--color-slate-ink) 82%, transparent); line-height: 1.75; }
+  .legal h2 { font-family: var(--font-display); font-weight: 600; font-size: 1.6rem; color: var(--color-slate-ink); margin: 2.4rem 0 0.8rem; letter-spacing: -0.01em; }
+  .legal h3 { font-weight: 600; font-size: 1.05rem; color: var(--color-slate-ink); margin: 1.6rem 0 0.4rem; }
+  .legal p { margin: 0.8rem 0; }
+  .legal ul { margin: 0.8rem 0; padding-left: 0; list-style: none; }
+  .legal ul li { position: relative; padding-left: 1.25rem; margin: 0.4rem 0; }
+  .legal ul li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--color-teal); }
+  .legal a { color: var(--color-teal); text-decoration: underline; text-underline-offset: 2px; }
+  .legal strong { color: var(--color-slate-ink); font-weight: 600; }
+
   /* Marquee */
   .marquee-track {
     display: inline-flex;

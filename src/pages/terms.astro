@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { company } from '../data/site';
+const updated = '09/06/2026';
+---
+<Base
+  title="Terms of Use — 21 Degrees Heating"
+  description="Terms governing use of the 21 Degrees Heating website."
+>
+  <PageHeader eyebrow="Legal" title='<span class="font-semibold">Terms of use</span>' sub={`Terms governing your use of this website. Last updated: ${updated}.`} />
+
+  <section class="bg-bone py-16 lg:py-24">
+    <article class="legal mx-auto max-w-3xl px-5 lg:px-8">
+      <h2>About these terms</h2>
+      <p>This website is operated by <strong>{company.legalName}</strong>, registered in England &amp; Wales under company number {company.companyNumber}, registered office {company.registeredOffice}. By using this website you agree to these terms.</p>
+
+      <h2>Use of the website</h2>
+      <p>You may use this website for lawful purposes only. You must not misuse it by introducing malicious code, attempting to gain unauthorised access, or using it in any way that could damage or impair the site or its availability.</p>
+
+      <h2>Intellectual property</h2>
+      <p>The content, design, text and graphics on this website are owned by or licensed to {company.shortName} and are protected by copyright. Project photography and the company logo remain our property. You may not reproduce or redistribute them without our written permission.</p>
+
+      <h2>Accuracy of information</h2>
+      <p>We take care to keep the information on this website accurate and up to date, including project values and descriptions, but we make no warranties that it is complete or error-free. Information is provided for general guidance and does not constitute a contractual offer. Any project engagement is subject to a separate written agreement.</p>
+
+      <h2>External links</h2>
+      <p>Where we link to third-party websites (such as accreditation bodies), we do so for convenience and are not responsible for their content.</p>
+
+      <h2>Liability</h2>
+      <p>To the extent permitted by law, we are not liable for any loss arising from use of, or reliance on, this website. Nothing in these terms excludes liability that cannot be excluded under English law.</p>
+
+      <h2>Governing law</h2>
+      <p>These terms are governed by the laws of England &amp; Wales, and any disputes are subject to the exclusive jurisdiction of the courts of England &amp; Wales.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about these terms: <a href={`mailto:${company.email}`}>{company.email}</a> or {company.phoneDisplay}.</p>
+    </article>
+  </section>
+</Base>

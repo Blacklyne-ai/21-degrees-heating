@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import { company } from '../data/site';
+---
+<Base
+  title="Contact — 21 Degrees Heating"
+  description="Talk to 21 Degrees Heating about a commercial M&E heating project, framework or emergency boiler hire. Call 020 7622 9388 or send a tender enquiry."
+>
+  <PageHeader
+    eyebrow="Discuss a project"
+    title='Talk to the team that <span class="font-semibold">delivers it.</span>'
+    sub="Phone is the fastest route - especially for emergency boiler cover. For tenders and project enquiries, the form below routes straight to us."
+    ghost="Talk"
+  />
+
+  <section class="bg-slate-ink py-16 text-bone lg:py-24">
+    <div class="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[1fr_1.2fr] lg:px-8">
+      <div class="reveal">
+        <ul class="space-y-5 text-sm">
+          <li class="flex gap-3"><span class="text-teal-400">›</span><div><p class="text-steel-light">Phone</p><a href={`tel:${company.phoneHref}`} class="text-xl font-semibold text-bone hover:text-teal-400 tnum">{company.phoneDisplay}</a></div></li>
+          <li class="flex gap-3"><span class="text-teal-400">›</span><div><p class="text-steel-light">Email</p><a href={`mailto:${company.email}`} class="text-xl font-semibold text-bone hover:text-teal-400">{company.email}</a></div></li>
+          <li class="flex gap-3"><span class="text-teal-400">›</span><div><p class="text-steel-light">Trading address</p><p class="text-bone">{company.tradingAddress}</p></div></li>
+          <li class="flex gap-3"><span class="text-teal-400">›</span><div><p class="text-steel-light">Registered office</p><p class="text-bone">{company.registeredOffice}</p></div></li>
+        </ul>
+
+        <div class="mt-6 rounded-2xl border border-teal/30 bg-teal/10 p-5">
+          <p class="font-display text-lg font-semibold text-bone">Emergency boiler hire</p>
+          <p class="mt-1 text-sm text-steel-light">Plant down? We hold our own temporary boilers, 100kW–2MW. Call the line above and ask for emergency hire.</p>
+        </div>
+
+        <div class="mt-6 overflow-hidden rounded-2xl border border-white/10">
+          <iframe
+            title="21 Degrees Heating - Battersea works location"
+            src="https://www.google.com/maps?q=Parkfield%20Industrial%20Estate%2C%20Culvert%20Place%2C%20London%20SW11%205BA&output=embed"
+            width="100%" height="280" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <div class="reveal reveal-r">
+        <EnquiryForm />
+      </div>
+    </div>
+  </section>
+</Base>

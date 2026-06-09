@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { sectors, services, projects } from '../data/site';
+
+const groups = [
+  {
+    title: 'Main',
+    links: [
+      { href: '/', label: 'Home' },
+      { href: '/about', label: 'About' },
+      { href: '/contact', label: 'Contact' },
+      { href: '/accreditations', label: 'Accreditations' },
+      { href: '/capability-statement', label: 'Capability statement' },
+    ],
+  },
+  { title: 'Sectors', links: [{ href: '/sectors', label: 'All sectors' }, ...sectors.map((s) => ({ href: `/sectors/${s.slug}`, label: s.name }))] },
+  { title: 'Services', links: [{ href: '/services', label: 'All services' }, ...services.map((s) => ({ href: `/services/${s.slug}`, label: s.name }))] },
+  { title: 'Projects', links: [{ href: '/portfolio', label: 'All projects' }, ...projects.map((p) => ({ href: `/portfolio/${p.slug}`, label: p.name }))] },
+  {
+    title: 'Legal',
+    links: [
+      { href: '/privacy', label: 'Privacy policy' },
+      { href: '/cookie-policy', label: 'Cookie policy' },
+      { href: '/terms', label: 'Terms of use' },
+    ],
+  },
+];
+---
+<Base
+  title="Sitemap — 21 Degrees Heating"
+  description="Every page on the 21 Degrees Heating website."
+>
+  <PageHeader eyebrow="Index" title='<span class="font-semibold">Sitemap</span>' sub="Every page on the site, in one place." ghost="Map" />
+
+  <section class="bg-bone py-16 lg:py-24">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 sm:grid-cols-2 lg:grid-cols-3 lg:px-8" data-stagger>
+      {groups.map((g) => (
+        <div class="reveal">
+          <p class="eyebrow mb-4">{g.title}</p>
+          <ul class="space-y-2.5 text-sm">
+            {g.links.map((l) => (
+              <li><a href={l.href} class="text-slate-ink/75 transition-colors hover:text-teal">{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <p class="mx-auto mt-12 max-w-7xl px-5 text-xs text-steel lg:px-8">An XML sitemap for search engines is available at <a href="/sitemap-index.xml" class="font-medium text-teal hover:text-teal-600">/sitemap-index.xml</a>.</p>
+  </section>
+</Base>

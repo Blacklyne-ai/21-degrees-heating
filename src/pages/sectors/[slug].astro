@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ClosingCTA from '../../components/ClosingCTA.astro';
+import { sectors, services, projects } from '../../data/site';
+import { sectorDetail } from '../../data/details';
+import { getPhoto } from '../../lib/photos';
+
+export function getStaticPaths() {
+  return sectors.map((s) => ({ params: { slug: s.slug }, props: { sector: s } }));
+}
+const { sector: s } = Astro.props;
+const detail = sectorDetail[s.slug];
+const sectorProjects = projects.filter((p) => p.sectorSlug === s.slug);
+const relatedServices = (detail?.services ?? []).map((slug) => services.find((sv) => sv.slug === slug)!).filter(Boolean);
+---
+<Base
+  title={`${s.name} — Sector | 21 Degrees Heating`}
+  description={s.blurb}
+>
+  <PageHeader
+    eyebrow={`Sector ${s.no} · ${s.tag}`}
+    title={`<span class="font-semibold">${s.name}</span>`}
+    sub={s.blurb}
+    ghost={s.no}
+  />
+
+  <!-- Intro + capabilities -->
+  <section class="bg-bone py-16 lg:py-24">
+    <div class="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[1.4fr_1fr] lg:px-8">
+      <div class="reveal">
+        <p class="eyebrow mb-3">What we deliver here</p>
+        <div class="space-y-4 text-lg leading-relaxed text-slate-ink/80">
+          {detail?.intro.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+      <aside class="reveal">
+        <div class="rounded-3xl border border-slate-ink/10 bg-bone-200/50 p-7">
+          <p class="eyebrow mb-4">Capabilities</p>
+          <ul class="space-y-3 text-sm text-slate-ink/80">
+            {detail?.points.map((pt) => (
+              <li class="flex gap-2.5"><span class="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-teal"></span>{pt}</li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Projects in this sector -->
+  {sectorProjects.length > 0 && (
+    <section class="bg-bone-200/40 py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="mb-10 flex flex-wrap items-end justify-between gap-4 reveal">
+          <h2 class="h-display text-3xl text-slate-ink sm:text-4xl">
+            {sectorProjects.length} project{sectorProjects.length > 1 ? 's' : ''} in <span class="font-semibold">{s.name.toLowerCase()}</span>
+          </h2>
+          <a href="/portfolio" class="text-sm font-semibold text-teal hover:text-teal-600">All projects &rarr;</a>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3" data-stagger>
+          {sectorProjects.map((p) => {
+            const img = getPhoto(`${p.photoPrefix}-01`)!;
+            return (
+              <a href={`/portfolio/${p.slug}`} class="lift group flex flex-col overflow-hidden rounded-3xl border border-slate-ink/10 bg-bone hover:border-teal/40 reveal">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                  <Image src={img} alt={`${p.name} project`} class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" widths={[400, 700]} sizes="(max-width:768px) 100vw, 33vw" />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <div class="flex items-baseline justify-between gap-3">
+                    <h3 class="font-display text-xl font-semibold text-slate-ink">{p.name}</h3>
+                    <span class="flex-none font-semibold text-teal tnum">{p.value}</span>
+                  </div>
+                  <p class="mt-2 text-sm leading-relaxed text-slate-ink/70">{p.summary}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Related services -->
+  {relatedServices.length > 0 && (
+    <section class="bg-slate-ink py-16 text-bone lg:py-24">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <p class="eyebrow mb-6">Services for this sector</p>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
+          {relatedServices.map((sv) => (
+            <a href={`/services/${sv.slug}`} class="lift group rounded-2xl border border-white/10 bg-slate-800 p-6 hover:border-teal/40 reveal">
+              <span class="font-display text-2xl font-semibold text-teal-400 tnum">{sv.no}</span>
+              <h3 class="mt-3 font-display text-lg font-semibold text-bone group-hover:text-teal-400">{sv.name}</h3>
+              <p class="mt-1 text-xs font-medium uppercase tracking-wide text-steel-light">{sv.tag}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <ClosingCTA
+    title={`Delivering in ${s.name.toLowerCase()}? <span class="font-semibold">Let’s talk.</span>`}
+  />
+</Base>

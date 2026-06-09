@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import { company } from '../data/site';
+
+const inside = [
+  'Company overview, history and Companies House details',
+  'Full accreditation and insurance schedule',
+  'Named £1M+ project case studies with values',
+  'In-house design, fabrication and ground-works capability',
+  'Sector experience: social housing, NHS, heritage, education, local authority, commercial',
+  'Health & safety record and policies',
+];
+---
+<Base
+  title="Capability Statement — 21 Degrees Heating"
+  description="Download the 21 Degrees Heating capability statement - accreditations, insurances and £1M+ project evidence for tender pre-qualification and framework submissions."
+>
+  <PageHeader
+    eyebrow="For tender qualification"
+    title='Everything procurement needs, <span class="font-semibold">in one document.</span>'
+    sub="Built for pre-qualification and framework submissions - accreditations, insurances, recent project evidence and company information."
+    ghost="PDF"
+  />
+
+  <section class="bg-bone py-16 lg:py-24">
+    <div class="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-2 lg:px-8">
+      <div class="reveal">
+        <p class="eyebrow mb-3">Inside the statement</p>
+        <ul class="space-y-3 text-base text-slate-ink/80">
+          {inside.map((item) => (
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-teal"></span>{item}</li>
+          ))}
+        </ul>
+        <div class="mt-8 rounded-3xl border border-slate-ink/10 bg-slate-ink p-7 text-bone">
+          <p class="font-display text-xl font-semibold">Download the capability statement</p>
+          <p class="mt-1.5 text-sm text-steel-light">PDF, formatted for procurement packs.</p>
+          <a href="/downloads/capability-statement.pdf" download class="mt-5 inline-flex items-center gap-2 rounded-full bg-teal px-7 py-3.5 font-semibold text-bone transition-colors hover:bg-teal-600">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 13h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download PDF
+          </a>
+          <p class="mt-3 text-xs text-steel-light/70">Placeholder document until the client supplies the final high-resolution PDF.</p>
+        </div>
+        <p class="mt-6 text-sm text-slate-ink/70">Prefer it tailored to a specific framework or sector? Call <a href={`tel:${company.phoneHref}`} class="font-semibold text-teal hover:text-teal-600 tnum">{company.phoneDisplay}</a> or use the form.</p>
+      </div>
+
+      <div class="reveal reveal-r">
+        <EnquiryForm heading="Request a tailored capability pack" sub="Tell us the framework or project and we’ll send the relevant evidence." />
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ClosingCTA from '../../components/ClosingCTA.astro';
+import { sectors, projects } from '../../data/site';
+
+const countFor = (slug: string) => projects.filter((p) => p.sectorSlug === slug).length;
+---
+<Base
+  title="Sectors — 21 Degrees Heating"
+  description="Six sectors we serve: social housing, NHS healthcare, heritage, education, local authority and commercial. Commercial M&E heating across London and the Home Counties."
+>
+  <PageHeader
+    eyebrow="Six sectors we serve"
+    title='Built for the buildings that <span class="font-semibold">can’t go cold.</span>'
+    sub="From council estates and NHS trusts to heritage landmarks and university campuses, we deliver M&E heating where the building can’t stop working."
+    ghost="06"
+  />
+
+  <section class="bg-bone py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+        {sectors.map((s) => {
+          const n = countFor(s.slug);
+          return (
+            <a href={`/sectors/${s.slug}`} class="lift group flex flex-col rounded-3xl border border-slate-ink/10 bg-bone-200/50 p-7 hover:border-teal/40 hover:bg-bone-200 reveal">
+              <div class="flex items-baseline justify-between">
+                <span class="font-display text-3xl font-semibold text-teal tnum">{s.no}</span>
+                <span class="rounded-full bg-slate-ink/5 px-3 py-1 text-xs font-medium text-steel">{s.tag}</span>
+              </div>
+              <h2 class="mt-5 font-display text-2xl font-semibold text-slate-ink">{s.name}</h2>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-slate-ink/70">{s.blurb}</p>
+              <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-ink transition-colors group-hover:text-teal">
+                {n > 0 ? `${n} project${n > 1 ? 's' : ''} in this sector` : 'Explore sector'}
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <ClosingCTA
+    title='A sector we should be on? <span class="font-semibold">Let’s talk frameworks.</span>'
+    sub="We deliver across public and commercial frameworks - SCAPE, Procure23, Pagabo, LHC and CCS. Tell us about the estate."
+  />
+</Base>
