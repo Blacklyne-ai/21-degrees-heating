@@ -261,7 +261,7 @@ export const projects: Project[] = [
     ],
     photoPrefix: 'kingston-hill',
     photoCount: 7,
-    map: { x: 22, y: 72 },
+    map: { x: 23, y: 70 },
   },
   {
     slug: 'seething-wells',
@@ -292,7 +292,7 @@ export const projects: Project[] = [
     ],
     photoPrefix: 'renewables',
     photoCount: 3,
-    map: { x: 20, y: 74 },
+    map: { x: 15, y: 80 },
   },
   {
     slug: 'bow-street-magistrates',
@@ -450,7 +450,7 @@ export const projects: Project[] = [
     ],
     photoPrefix: 'middlesex-york',
     photoCount: 4,
-    map: { x: 57, y: 62 },
+    map: { x: 53, y: 67 },
   },
   {
     slug: 'dartford-civic-centre',
@@ -510,7 +510,7 @@ export const projects: Project[] = [
     ],
     photoPrefix: 'renewables',
     photoCount: 3,
-    map: { x: 83, y: 62 },
+    map: { x: 88, y: 68 },
   },
 ];
 

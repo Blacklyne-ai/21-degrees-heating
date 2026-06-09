@@ -1,10 +1,17 @@
 ---
 import { projects, sectors } from '../data/site';
-// Distinct sectors present in the project set, in display order
 const sectorList = sectors.filter((s) => projects.some((p) => p.sectorSlug === s.slug));
+
+// Stylised area labels to orient the viewer (left%, top%)
+const areas = [
+  { name: 'City of London', x: 49, y: 33 },
+  { name: 'Southwark', x: 66, y: 74 },
+  { name: 'Kingston', x: 12, y: 86 },
+  { name: 'Dartford', x: 88, y: 55 },
+  { name: 'Canterbury', x: 86, y: 90 },
+];
 ---
 <section class="relative isolate overflow-hidden bg-slate-ink py-20 text-bone lg:py-28" aria-labelledby="map-heading">
-  <!-- teal glow so the glass card has colour to frost -->
   <div class="pointer-events-none absolute -right-32 top-1/3 -z-0 h-[34rem] w-[34rem] rounded-full bg-teal/20 blur-[120px]" aria-hidden="true"></div>
   <div class="relative mx-auto max-w-7xl px-5 lg:px-8">
     <div class="max-w-2xl reveal">
@@ -13,11 +20,11 @@ const sectorList = sectors.filter((s) => projects.some((p) => p.sectorSlug === s
         <span class="font-semibold">£10M+ delivered</span> across London<br />and the South East.
       </h2>
       <p class="mt-4 text-base leading-relaxed text-steel-light">
-        Every pin is a named, delivered project - value, sector and scope confirmed. Hover or tap a marker, or filter by sector.
+        Every marker is a named, delivered project. Hover a pin or a row below to connect the two - the numbers match.
       </p>
     </div>
 
-    <!-- Sector filter -->
+    <!-- Filter -->
     <div class="mt-8 flex flex-wrap gap-2 reveal" role="group" aria-label="Filter projects by sector">
       <button data-filter="all" class="map-filter is-active rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium backdrop-blur-sm transition-colors">All sectors</button>
       {sectorList.map((s) => (
@@ -25,87 +32,110 @@ const sectorList = sectors.filter((s) => projects.some((p) => p.sectorSlug === s
       ))}
     </div>
 
-    <div class="mt-8 grid gap-6 lg:grid-cols-[1.55fr_1fr]">
+    <div class="mt-8 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
       <!-- Map -->
-      <div id="map-canvas" class="relative aspect-[16/11] overflow-hidden rounded-3xl border border-white/10 bg-slate-900 reveal">
-        <svg viewBox="0 0 160 110" class="absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      <div id="map-canvas" class="relative aspect-[16/12] overflow-hidden rounded-3xl border border-white/10 bg-slate-900 reveal sm:aspect-[16/11]">
+        <svg viewBox="0 0 160 120" class="absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
           <defs>
             <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-              <path d="M10 0H0V10" fill="none" stroke="#ffffff" stroke-width="0.25" stroke-opacity="0.06" />
+              <path d="M10 0H0V10" fill="none" stroke="#ffffff" stroke-width="0.25" stroke-opacity="0.05" />
             </pattern>
             <filter id="thames-glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="1.4" result="b" /><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              <feGaussianBlur stdDeviation="1.6" result="b" /><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
+            <radialGradient id="land" cx="42%" cy="45%" r="75%">
+              <stop offset="0%" stop-color="#23323b" stop-opacity="0.9" />
+              <stop offset="100%" stop-color="#16222a" stop-opacity="0" />
+            </radialGradient>
           </defs>
-          <rect width="160" height="110" fill="url(#grid)" />
-          <!-- River Thames, stylised ribbon W→E with London meanders -->
-          <path d="M-5 64 C 25 58, 38 70, 58 66 C 72 63, 78 78, 92 74 C 104 71, 112 60, 126 62 C 140 64, 150 56, 168 60"
-                fill="none" stroke="#00769E" stroke-width="2.4" stroke-opacity="0.45" stroke-linecap="round" filter="url(#thames-glow)" />
-          <path id="thames-line" d="M-5 64 C 25 58, 38 70, 58 66 C 72 63, 78 78, 92 74 C 104 71, 112 60, 126 62 C 140 64, 150 56, 168 60"
-                fill="none" stroke="#3a9cc0" stroke-width="0.7" stroke-opacity="0.95" stroke-linecap="round" />
+          <rect width="160" height="120" fill="url(#land)" />
+          <rect width="160" height="120" fill="url(#grid)" />
+          <!-- River Thames: recognisable W->E with the Battersea bend and Isle of Dogs loop -->
+          <path d="M-6 92 C 24 84, 40 96, 60 80 C 74 69, 80 56, 96 60 C 104 62, 106 76, 116 74 C 126 72, 126 56, 138 60 C 150 64, 156 60, 168 64"
+                fill="none" stroke="#00769E" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round" filter="url(#thames-glow)" />
+          <path id="thames-line" d="M-6 92 C 24 84, 40 96, 60 80 C 74 69, 80 56, 96 60 C 104 62, 106 76, 116 74 C 126 72, 126 56, 138 60 C 150 64, 156 60, 168 64"
+                fill="none" stroke="#3a9cc0" stroke-width="0.8" stroke-opacity="0.95" stroke-linecap="round" />
+          <text x="118" y="50" fill="#3a9cc0" fill-opacity="0.7" font-size="3.4" letter-spacing="0.8" font-family="Inter Variable, sans-serif">RIVER THAMES</text>
         </svg>
 
+        <!-- Area labels -->
+        {areas.map((a) => (
+          <span class="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-steel-light/70" style={`left:${a.x}%; top:${a.y}%`}>{a.name}</span>
+        ))}
+
+        <!-- HQ marker -->
+        <div class="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2" style="left:39%; top:60%">
+          <span class="flex items-center gap-1.5">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.5 12 6v6.5H8.5V9h-3v3.5H2V6z" fill="#F4EFE6" stroke="#F4EFE6" stroke-width="0.5" stroke-linejoin="round"/></svg>
+            <span class="text-[0.6rem] font-bold uppercase tracking-wide text-bone">Battersea works</span>
+          </span>
+        </div>
+
+        <!-- Numbered project pins -->
         {projects.map((p, i) => (
           <button
             class="map-pin group absolute -translate-x-1/2 -translate-y-1/2"
             style={`left:${p.map.x}%; top:${p.map.y}%; --pi:${i}`}
+            data-i={i}
             data-sector={p.sectorSlug}
-            data-name={p.name}
-            data-value={p.value}
-            data-sectorname={p.sector}
-            data-summary={p.summary}
             data-href={`/portfolio/${p.slug}`}
-            aria-label={`${p.name} - ${p.value}, ${p.sector}`}
+            aria-label={`${i + 1}. ${p.name} - ${p.value}, ${p.sector}`}
           >
-            <span class="relative grid h-3.5 w-3.5 place-items-center">
-              <span class="pin-ping absolute h-3.5 w-3.5 rounded-full bg-teal/50"></span>
-              <span class="absolute h-3.5 w-3.5 rounded-full bg-teal/30 transition-transform duration-300 group-hover:scale-[2.6]"></span>
-              <span class="pin-dot relative h-2.5 w-2.5 rounded-full border border-bone/70 bg-teal transition-transform duration-300 group-hover:scale-125"></span>
-            </span>
+            <span class="pin-ping absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal/40"></span>
+            <span class="pin-dot relative grid h-7 w-7 place-items-center rounded-full border-2 border-bone/50 bg-teal text-[0.72rem] font-bold text-bone shadow-lg transition-transform duration-300 group-hover:scale-125">{i + 1}</span>
           </button>
         ))}
-        <span class="absolute bottom-3 right-4 text-[0.65rem] uppercase tracking-[0.18em] text-steel-light/70">London &amp; the South East</span>
+
+        <span class="pointer-events-none absolute bottom-3 right-4 text-[0.6rem] uppercase tracking-[0.18em] text-steel-light/60">Greater London &amp; the South East</span>
       </div>
 
-      <!-- Detail card / list fallback -->
-      <div>
-        <div id="map-detail" class="glass-dark rounded-3xl p-6 reveal">
-          <p class="eyebrow" id="md-sector">Heritage</p>
-          <h3 class="mt-2 font-display text-2xl font-semibold text-bone" id="md-name">Tower Bridge</h3>
-          <p class="mt-1 text-3xl font-semibold text-teal-400 tnum" id="md-value">£800,000</p>
-          <p class="mt-3 text-sm leading-relaxed text-steel-light" id="md-summary">Two new commercial boiler rooms and full distribution pipework inside a working heritage landmark.</p>
-          <a id="md-link" href="/portfolio/tower-bridge" class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-bone hover:text-teal-400">
-            View case study
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-        <p class="mt-3 px-1 text-xs text-steel-light/70">Tip: every project also has its own page under <a href="/portfolio" class="underline underline-offset-2 hover:text-bone">Projects</a>.</p>
-      </div>
+      <!-- Numbered project list (always visible) -->
+      <ol id="project-legend" class="flex flex-col gap-1.5 reveal" aria-label="All ten projects">
+        {projects.map((p, i) => (
+          <li>
+            <a
+              href={`/portfolio/${p.slug}`}
+              data-legend
+              data-i={i}
+              data-sector={p.sectorSlug}
+              class="legend-row group flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.03] p-2.5 transition-colors hover:border-teal/40 hover:bg-white/[0.07]"
+            >
+              <span class="grid h-7 w-7 flex-none place-items-center rounded-full bg-teal/15 text-[0.72rem] font-bold text-teal-400 transition-colors group-hover:bg-teal group-hover:text-bone">{i + 1}</span>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate text-sm font-semibold text-bone">{p.name}</span>
+                <span class="block truncate text-[0.7rem] text-steel-light">{p.sector} · {p.location}</span>
+              </span>
+              <span class="flex-none text-sm font-semibold text-teal-400 tnum">{p.value}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
     </div>
+
+    <p class="mt-4 text-xs text-steel-light/70 reveal">Tip: select a sector above to isolate it, or open any project for the full case study.</p>
   </div>
 </section>
 
 <style>
   .map-filter.is-active { background-color: #00769E; border-color: #00769E; color: #F4EFE6; }
   .map-filter { transition: background-color .25s ease, border-color .25s ease, color .25s ease; }
+
   .map-pin { cursor: pointer; transition: opacity .4s ease; }
-  .map-pin.dimmed { opacity: 0.18; }
-  .map-pin .pin-dot { box-shadow: 0 0 0 0 rgba(0,118,158,0); transition: box-shadow .3s ease, transform .3s ease; }
-  .map-pin.active .pin-dot { box-shadow: 0 0 0 5px rgba(0,118,158,0.35); transform: scale(1.25); }
-  .map-pin .pin-ping { opacity: 0; }
+  .map-pin .pin-dot { box-shadow: 0 4px 12px -2px rgba(0,0,0,.5); }
+  .map-pin.active .pin-dot, .map-pin:hover .pin-dot { transform: scale(1.3); box-shadow: 0 0 0 5px rgba(0,118,158,.35); z-index: 5; }
+  .map-pin.dimmed, .legend-row.dimmed { opacity: .25; }
+  .legend-row.active { border-color: rgba(0,118,158,.5); background: rgba(0,118,158,.12); }
 
-  /* Thames draws in when the map enters view */
-  #thames-line { stroke-dasharray: 320; stroke-dashoffset: 320; }
-  .map-live #thames-line { animation: draw 2.2s cubic-bezier(0.16,1,0.3,1) forwards; }
+  /* Entrance */
+  #thames-line { stroke-dasharray: 360; stroke-dashoffset: 360; }
+  .map-live #thames-line { animation: draw 2.4s cubic-bezier(0.16,1,0.3,1) forwards; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
-
-  /* Pins drop in (staggered), then gently ping */
   .map-pin { opacity: 0; transform: translate(-50%,-50%) scale(0.2); }
-  .map-live .map-pin { animation: pindrop .5s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: calc(0.9s + var(--pi) * 90ms); }
+  .map-live .map-pin { animation: pindrop .5s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: calc(0.9s + var(--pi) * 85ms); }
   @keyframes pindrop { to { opacity: 1; transform: translate(-50%,-50%) scale(1); } }
-  .map-live .map-pin.dimmed { opacity: .18; }
-  .map-live .pin-ping { animation: ping 2.6s ease-out infinite; animation-delay: calc(1.6s + var(--pi) * 90ms); }
-  @keyframes ping { 0% { opacity:.6; transform:scale(1);} 70%,100% { opacity:0; transform:scale(3.2);} }
+  .pin-ping { opacity: 0; }
+  .map-live .pin-ping { animation: ping 2.8s ease-out infinite; animation-delay: calc(1.7s + var(--pi) * 85ms); }
+  @keyframes ping { 0% { opacity:.5; transform:translate(-50%,-50%) scale(.7);} 70%,100% { opacity:0; transform:translate(-50%,-50%) scale(2.4);} }
 
   @media (prefers-reduced-motion: reduce) {
     #thames-line { stroke-dashoffset: 0; }
@@ -116,16 +146,42 @@ const sectorList = sectors.filter((s) => projects.some((p) => p.sectorSlug === s
 </style>
 
 <script>
-  const detail = {
-    sector: document.getElementById('md-sector')!,
-    name: document.getElementById('md-name')!,
-    value: document.getElementById('md-value')!,
-    summary: document.getElementById('md-summary')!,
-    link: document.getElementById('md-link') as HTMLAnchorElement,
-  };
   const pins = Array.from(document.querySelectorAll<HTMLButtonElement>('.map-pin'));
+  const rows = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-legend]'));
 
-  // Kick off draw + pin-drop when the map enters the viewport
+  const setActive = (i: number, on: boolean) => {
+    pins[i]?.classList.toggle('active', on);
+    rows[i]?.classList.toggle('active', on);
+  };
+
+  pins.forEach((pin, i) => {
+    pin.addEventListener('mouseenter', () => setActive(i, true));
+    pin.addEventListener('mouseleave', () => setActive(i, false));
+    pin.addEventListener('focus', () => setActive(i, true));
+    pin.addEventListener('blur', () => setActive(i, false));
+    pin.addEventListener('click', () => { window.location.href = pin.dataset.href!; });
+  });
+  rows.forEach((row, i) => {
+    row.addEventListener('mouseenter', () => setActive(i, true));
+    row.addEventListener('mouseleave', () => setActive(i, false));
+    row.addEventListener('focus', () => setActive(i, true));
+    row.addEventListener('blur', () => setActive(i, false));
+  });
+
+  // Sector filter dims both pins and rows
+  const filters = Array.from(document.querySelectorAll<HTMLButtonElement>('.map-filter'));
+  filters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filters.forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const f = btn.dataset.filter!;
+      const dim = (el: HTMLElement) => el.classList.toggle('dimmed', f !== 'all' && el.dataset.sector !== f);
+      pins.forEach(dim);
+      rows.forEach(dim);
+    });
+  });
+
+  // Entrance animation on view
   const canvas = document.getElementById('map-canvas');
   if (canvas) {
     const io = new IntersectionObserver((entries) => {
@@ -133,30 +189,4 @@ const sectorList = sectors.filter((s) => projects.some((p) => p.sectorSlug === s
     }, { threshold: 0.25 });
     io.observe(canvas);
   }
-
-  function show(pin: HTMLButtonElement) {
-    detail.sector.textContent = pin.dataset.sectorname!;
-    detail.name.textContent = pin.dataset.name!;
-    detail.value.textContent = pin.dataset.value!;
-    detail.summary.textContent = pin.dataset.summary!;
-    detail.link.href = pin.dataset.href!;
-    pins.forEach((p) => p.classList.remove('active'));
-    pin.classList.add('active');
-  }
-  pins.forEach((pin) => {
-    pin.addEventListener('mouseenter', () => show(pin));
-    pin.addEventListener('focus', () => show(pin));
-    pin.addEventListener('click', () => { window.location.href = pin.dataset.href!; });
-  });
-
-  // Sector filter
-  const filters = Array.from(document.querySelectorAll<HTMLButtonElement>('.map-filter'));
-  filters.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      filters.forEach((b) => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      const f = btn.dataset.filter!;
-      pins.forEach((p) => p.classList.toggle('dimmed', f !== 'all' && p.dataset.sector !== f));
-    });
-  });
 </script>
